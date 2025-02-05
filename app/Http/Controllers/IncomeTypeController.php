@@ -21,7 +21,7 @@ class IncomeTypeController extends Controller
     public function index(Request $rquest)
     {
         if ($rquest->ajax()) {
-            $data = IncomeType::query()->orderBy('id', 'desc')->get();
+            $data = IncomeType::query()->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($row) {
                     $viewLink = route('incomeType.show', $row->id);

@@ -81,7 +81,14 @@
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td onclick="viewSale({{ $sale->id }})">{{ $sale->sale_date }}</td>
                                         <td onclick="viewSale({{ $sale->id }})">{{ date('Y') . $sale->id }}</td>
-                                        <td onclick="viewSale({{ $sale->id }})">{{ $sale->customer->name }}</td>
+                                        <td onclick="viewSale({{ $sale->id }})">
+                                            @if ($sale->customer_name || $sale->customer_phone )
+                                                {{ $sale->customer_name }} <br>
+                                                <small>({{ $sale->customer_phone }})</small>
+                                            @else
+                                                {{ $sale->customer->name }}
+                                            @endif
+                                        </td>
                                         <td onclick="viewSale({{ $sale->id }})">{{ $sale->user->name }}</td>
                                         <td onclick="viewSale({{ $sale->id }})">{{ $sale->total_amount }}</td>
                                         <td onclick="viewSale({{ $sale->id }})">{{ $sale->paying_amount }}</td>
@@ -155,7 +162,6 @@
         </div>
     </div>
     <!-- Business Modal End -->
-
 @endsection
 
 @section('script')

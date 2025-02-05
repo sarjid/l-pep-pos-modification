@@ -296,18 +296,45 @@
                             </div>
 
                             <div class="custom-scroll">
-                                <div class="mt-4">
+
+                                <div class="customer-section">
+                                    <div class="mt-2">
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="" class="mt-2">Customer Name</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" name="customer_name">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-2">
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="" class="mt-2">Customer Phone</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" name="customer_phone">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="mt-2">
                                     <div class="form-group row">
                                         <div class="col-md-4">
                                             <label for="" class="mt-2">Cash</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" name="paying_amount" value="00.00" >
+                                            <input type="text" class="form-control" name="paying_amount"
+                                                value="00.00">
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="mt-4">
+                                <div class="mt-2">
                                     <div class="form-group row">
                                         <div class="col-md-4">
                                             <label for="" class="mt-2">Payment Type</label>
@@ -329,7 +356,7 @@
                                 </div>
 
                                 @if ($business_setting->deliverycharge)
-                                    <div class="mt-4">
+                                    <div class="mt-2">
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="" class="mt-2"> Delivery Charge </label>
@@ -357,7 +384,7 @@
                                     </div>
                                 @endif
 
-                                <div class="mt-4">
+                                {{-- <div class="mt-4">
                                     <div class="form-group row">
                                         <div class="col-md-4">
                                             <label for="" class="mt-2"> Due</label>
@@ -367,9 +394,9 @@
                                                 id="due_amountModal" readonly value="0">
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
-                                <div class="mt-4">
+                                <div class="mt-2">
 
                                     <div class="row">
                                         <div class="col-md-6 mt-4">

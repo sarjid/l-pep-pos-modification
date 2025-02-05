@@ -32,7 +32,6 @@ class SaleController extends Controller
 
         // dd($request->all());
 
-
         return $this->service()->store($request);
     }
 

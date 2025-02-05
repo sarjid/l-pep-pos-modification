@@ -52,9 +52,6 @@
                     bDeferRender: true,
                     responsive: true,
                     autoWidth: false,
-                    "order": [
-                        [1, 'asc']
-                    ],
                     ajax: "{{ route('incomeType.index') }}",
                     columns: [{
                             "data": 'DT_RowIndex',

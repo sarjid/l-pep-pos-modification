@@ -10,6 +10,9 @@ class StockController extends Controller
 {
     public function index(Request $request)
     {
+
+
+        // return 'ok';
         $products = Product::query()
             ->when($request->product_name, function ($q) use ($request) {
                 $q->where('products.product_name', 'like', '%' . $request->product_name . '%');
@@ -23,6 +26,8 @@ class StockController extends Controller
             }])
             ->withStockProperties()
             ->paginate(25);
+
+            // return $products;
 
         return view('stock.index', [
             'products' => $products,

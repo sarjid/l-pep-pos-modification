@@ -26,23 +26,28 @@ class AdminSaleService extends SaleService
     public function index(Request $request)
     {
         $sales = Sale::query()
-            ->with(['customer', 'user'])
-            ->when($request->customer, function ($query) use ($request) {
-                $query->where('contact_id', $request->customer);
-            })
-            ->when($request->sale_date, function ($query) use ($request) {
-                $query->where('sale_date', $request->sale_date);
-            })
-            ->when($request->search, function ($query) use ($request) {
-                $query->whereHas('customer', function ($query) use ($request) {
-                    $query->where('name', 'like', '%' . $request->search . '%');
-                });
-            })
-            ->when($request->user, function ($query) use ($request) {
-                $query->where("user_id", $request->user);
-            })
-            ->orderBy('id', 'desc')
-            ->paginate(25);
+                ->with(['customer', 'user'])
+                ->when($request->customer, function ($query) use ($request) {
+                    $query->where('contact_id', $request->customer);
+                })
+                ->when($request->sale_date, function ($query) use ($request) {
+                    $query->where('sale_date', $request->sale_date);
+                })
+                ->when($request->search, function ($query) use ($request) {
+                    $query->where(function ($q) use ($request) {
+                        $q->where('customer_name', 'like', '%' . $request->search . '%')
+                        ->orWhere('customer_phone', 'like', '%' . $request->search . '%')
+                        ->orWhereHas('customer', function ($q) use ($request) {
+                            $q->where('name', 'like', '%' . $request->search . '%');
+                        });
+                    });
+                })
+                ->when($request->user, function ($query) use ($request) {
+                    $query->where("user_id", $request->user);
+                })
+                ->orderBy('id', 'desc')
+                ->paginate(25);
+
 
         return view('sale.index', [
             'sales' => $sales,
@@ -70,6 +75,8 @@ class AdminSaleService extends SaleService
             $sale = Sale::query()->create([
                 'user_id' => auth()->id(),
                 'contact_id' => $request->customer_id,
+                'customer_name' => $request->customer_name,
+                'customer_phone' => $request->customer_phone,
                 'sale_date' => date('Y-m-d'),
                 'sub_total' => $request->sub_total,
                 'discount_amount' => $request->discount_amount,

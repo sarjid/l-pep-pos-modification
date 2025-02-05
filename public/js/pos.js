@@ -337,10 +337,18 @@ $("body").on("input", "input[name=paying_amount]", function () {
 
 $("body").on("change", "#contact_id", function () {
     let val = $(this).val();
+    console.log('my_val',val);
+
+    if (val == 1) {
+        $('.customer-section').show();
+    }else{
+        $('.customer-section').hide();
+    }
 
     if (val == "") {
         $("#checkout").attr("disabled", true);
         $("input[name=paying_amount]").attr("readonly", true);
+
     } else {
         $("#checkout").attr("disabled", false);
         $("input[name=paying_amount]").removeAttr("readonly");

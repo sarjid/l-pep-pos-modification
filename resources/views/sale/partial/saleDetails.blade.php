@@ -5,9 +5,15 @@
         <div class="col-sm-6 invoice-col">
             Customer:
             <address>
-                <strong>{{ $sale->customer->business_name }}</strong>
-                {{ $sale->customer->name }}<br>
-                Mobile: {{ $sale->customer->mobile }}
+                @if ($sale->customer_name || $sale->customer_phone )
+                {{ $sale->customer_name }} <br>
+                <small>({{ $sale->customer_phone }})</small>
+            @else
+            <strong>{{ $sale->customer->business_name }}</strong>
+            {{ $sale->customer->name }}<br>
+            Mobile: {{ $sale->customer->mobile }}
+            @endif
+
             </address>
         </div>
 
