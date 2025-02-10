@@ -172,9 +172,9 @@ function getCachedAgents($fetch = false)
 {
     if ($fetch)
         cache()->forget('agents');
-
     return cache()->rememberForever('agents', function () {
         return User::query()
+            ->active()
             ->whereRelation('userPermission', 'role_id', '=', ROLE_AGENT)
             ->select('id', 'name')
             ->get();
