@@ -24,7 +24,7 @@ class StockTransferController extends Controller
             ->when($request->agent_id, fn ($q) => $q->where('agent_id', $request->agent_id))
             ->when($request->date, fn ($q) => $q->where('date', $request->date))
             ->when($request->search, fn ($q) => $q->where('invoice_no', $request->search)->orWhere('total_quantity', $request->search))
-            ->with('agent:id,name')
+            ->with(['agent:id,name','products'])
             ->orderByDesc('id')
             ->paginate(20);
 

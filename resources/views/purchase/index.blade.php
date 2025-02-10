@@ -48,6 +48,7 @@
                                 <tr>
                                     <th style="width: 5%">{{ __('page.common.sl') }}</th>
                                     <th style="width: 10%">{{ __('page.common.date') }}</th>
+                                    <th style="width: 10%">{{ __('page.product_name') }}</th>
                                     <th style="width: 10%">{{ __('page.common.invoice_no') }}</th>
                                     <th style="width: 10%"> {{ __('page.common.supplier') }}</th>
                                     <th style="width: 10%">{{ __('page.common.total_amount') }}</th>
@@ -61,8 +62,16 @@
                                 @foreach ($purchases as $purchase)
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
-                                        <td onclick="viewPurchase({{ $purchase->id }})">{{ $purchase->purchase_date }}
+                                        <td onclick="viewPurchase({{ $purchase->id }})">
+                                            {{ $purchase->purchase_date }}
                                         </td>
+
+                                        <td onclick="viewPurchase({{ $purchase->id }})">
+                                            @foreach ($purchase->products as $product)
+                                            <span>{{ $product->product_name }}</span>
+                                            @endforeach
+                                        </td>
+
                                         <td onclick="viewPurchase({{ $purchase->id }})">{{ $purchase->invoice_no }}
                                         </td>
                                         <td onclick="viewPurchase({{ $purchase->id }})">

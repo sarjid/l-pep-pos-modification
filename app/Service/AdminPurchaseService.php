@@ -17,8 +17,9 @@ class AdminPurchaseService extends PurchaseService
 {
   public function index(Request $request)
   {
+
     $purchases = Purchase::query()
-      ->with('supplier', 'purchaseReturn')
+      ->with(['supplier', 'purchaseReturn','products'])
       ->when($request->purchase_date, fn ($query) => $query->where('purchase_date', $request->purchase_date))
       ->when($request->search, function ($query) use ($request) {
         $query->where('invoice_no', "like", "%{$request->search}%")

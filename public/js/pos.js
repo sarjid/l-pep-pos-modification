@@ -337,7 +337,6 @@ $("body").on("input", "input[name=paying_amount]", function () {
 
 $("body").on("change", "#contact_id", function () {
     let val = $(this).val();
-    console.log('my_val',val);
 
     if (val == 1) {
         $('.customer-section').show();

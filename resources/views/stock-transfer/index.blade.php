@@ -60,6 +60,7 @@
                                 <tr>
                                     <th>{{ __('page.stock_transfer.sl') }}</th>
                                     <th>{{ __('page.stock_transfer.invoice') }}</th>
+                                    <th >{{ __('page.product_name') }}</th>
                                     <th>{{ __('page.stock_transfer.date') }}</th>
                                     @if (!isRole(ROLE_AGENT))
                                         <th>{{ __('page.stock_transfer.receiver') }}</th>
@@ -74,6 +75,11 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $transfer->invoice_no }}</td>
+                                        <td>
+                                            @foreach ($transfer->products as $product)
+                                            <span>{{ $product->product_name }}</span>
+                                            @endforeach
+                                        </td>
                                         <td>{{ $transfer->date }}</td>
                                         @if (!isRole(ROLE_AGENT))
                                             <td>{{ $transfer->agent->name }}</td>

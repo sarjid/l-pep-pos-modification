@@ -63,10 +63,10 @@
         <div class="col-sm-12 col-xs-12">
 
         </div>
-        <div class="col-md-6 col-sm-12 col-xs-12">
+        {{-- <div class="col-md-6 col-sm-12 col-xs-12">
 
-        </div>
-        <div class="col-md-6 col-sm-12 col-xs-12">
+        </div> --}}
+        <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="table-responsive">
                 <table class="table">
                     <tbody>
@@ -87,6 +87,18 @@
                             <td></td>
                             <td><span class="display_currency pull-right" data-currency_symbol="true">৳
                                     {{ $sale->total_amount - $sale->paying_amount }}</span></td>
+                        </tr>
+
+                        <tr>
+                            <th>Pay Amount: </th>
+                            <td></td>
+                            <td>
+                                <span class="display_currency pull-right" data-currency_symbol="true">
+                                     <input type="text" class="form-control" value="{{ $sale->total_amount - $sale->paying_amount }}" placeholder="current due amount">
+
+                                     <button class="btn btn-sm btn-danger" type="submit">Update</button>
+                                </span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

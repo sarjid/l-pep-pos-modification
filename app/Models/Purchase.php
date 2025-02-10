@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\InvoiceNo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Purchase extends Model
 {
@@ -42,5 +43,23 @@ class Purchase extends Model
     public function business()
     {
         return $this->belongsTo(Business::class);
+    }
+
+
+    /**
+     * Get all of the products for the Purchase
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function products(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Product::class,         // Final model
+            PurchaseProduct::class, // Intermediate model
+            'purchase_id',          // Foreign key on PurchaseProduct table
+            'id',                   // Local key on Product table
+            'id',                   // Local key on Purchase table
+            'product_id'            // Foreign key on PurchaseProduct pointing to Product
+        );
     }
 }
