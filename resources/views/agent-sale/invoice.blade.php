@@ -11,11 +11,26 @@
 
                             <div class="pull-left m-t-30">
                                 <address>
-                                    <strong>{{ $sale->customer->name }}</strong><br>
-                                    <abbr title="Phone">Mobile:</abbr> {{ $sale->customer->mobile }}
-                                    @if ($sale->customer->email)
-                                        <abbr title="Phone">Email:</abbr> {{ $sale->customer->email }}
+
+                                    <strong>
+                                        @if ($sale->customer_name || $sale->customer_phone )
+                                            {{ $sale->customer_name }}
+                                        @else
+                                        {{ $sale->customer->name }} <br>
+                                        @endif
+                                    </strong> <br>
+
+                                    @if ($sale->customer_name || $sale->customer_phone )
+                                        <abbr title="Phone">Mobile:</abbr> {{ $sale->customer_phone }}
+                                    @else
+                                        <abbr title="Phone">Mobile:</abbr> {{ $sale->customer->mobile }}
                                     @endif
+                                    <br>
+
+                                    @if ($sale->customer?->email)
+                                        <abbr title="Phone">Email:</abbr> {{ $sale->customer->email ?? '' }}
+                                    @endif
+
                                 </address>
                             </div>
                             <div class="pull-right m-t-30">

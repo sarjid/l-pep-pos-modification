@@ -23,9 +23,9 @@
 
                             <div class="pull-left m-t-30">
                                 <address>
-                                    <strong>{{ $sale->customer->name }}</strong><br>
+                                    <strong>{{ $sale->customer_name ??  $sale->customer->name }}</strong><br>
                                     {{ $sale->customer->zip }},{{ $sale->customer->city }},{{ $sale->customer->country }}<br>
-                                    <abbr title="Phone">P:</abbr> (+880) {{ $sale->customer->mobile }}
+                                    <abbr title="Phone">P:</abbr> (+880) {{ $sale->customer_phone ?? $sale->customer->mobile }}
                                 </address>
                             </div>
                             <div class="pull-right m-t-30">

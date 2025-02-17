@@ -424,11 +424,20 @@ $(".open-payment-modal").click(function () {
     // var isSelected = $('#contact_id').find(":selected").val();
     if (cartItems < 1) {
         toastr.error("Your cart list is empty !");
-    } else if (cusSelection.val()) {
+    }else{
+        if (cusSelection.val()) {
+            $('.customer-section').hide();
+        }else{
+            $('.customer-section').show();
+        }
         $(".payment-modal-lg").modal("show");
-    } else {
-        toastr.error("Kindly select a customer");
     }
+
+    // else if (cusSelection.val()) {
+    //     $(".payment-modal-lg").modal("show");
+    // } else {
+    //     toastr.error("Kindly select a customer");
+    // }
 
 });
 

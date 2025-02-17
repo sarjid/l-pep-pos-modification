@@ -26,7 +26,7 @@ class StockTransferController extends Controller
             ->when($request->search, fn ($q) => $q->where('invoice_no', $request->search)->orWhere('total_quantity', $request->search))
             ->with(['agent:id,name','products'])
             ->orderByDesc('id')
-            ->paginate(20);
+            ->paginate(40);
 
         $totalQuantity = StockTransfer::query()
             ->when($request->type == 'received', fn ($q) => $q->where('agent_id', auth()->id()))
@@ -45,6 +45,8 @@ class StockTransferController extends Controller
 
     public function store(Request $request)
     {
+
+        // dd($request->all());
         $request->validate([
             'agent_id' => 'required',
             'date' => 'required',
@@ -77,15 +79,17 @@ class StockTransferController extends Controller
 
             foreach ($request->product_id as $key => $product_id) {
                 $purchaseProduct = PurchaseProduct::query()
-                    ->where('id', $request->purchase_product_id[$key])
-                    ->withSum('stockTransferDetails as transfer_qty', 'quantity')
-                    ->addSelect([
-                        'final_quantity' => function ($q) {
-                            $q->selectRaw('COALESCE(quantity) - COALESCE(transfer_qty, 0)');
-                        }
-                    ])
-                    ->havingRaw('final_quantity > ' . $request->quantity[$key])
-                    ->firstOrFail();
+                                ->where('id', $request->purchase_product_id[$key])
+                                ->withSum('stockTransferDetails as transfer_qty', 'quantity')
+                                ->addSelect([
+                                    'final_quantity' => function ($q) {
+                                        $q->selectRaw('COALESCE(quantity) - COALESCE(transfer_qty, 0)');
+                                    }
+                                ])
+                                ->havingRaw('final_quantity >= ' . $request->quantity[$key])
+                                //old one == ->havingRaw('final_quantity > ' . $request->quantity[$key])
+                                ->firstOrFail();
+
 
                 $transfer->details()->create([
                     'stock_transfer_id' => $transfer->id,

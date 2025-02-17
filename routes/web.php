@@ -484,3 +484,9 @@ Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('cache:clear');
     return 'clear complete';
 });
+
+Route::get('/view-clear', function () {
+    Artisan::call('view:clear');
+    return 'View cache cleared successfully!';
+});
+

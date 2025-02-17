@@ -68,7 +68,16 @@
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td onclick="viewSale({{ $sale->id }})">{{ $sale->sale_date }}</td>
                                         <td onclick="viewSale({{ $sale->id }})">{{ $sale->invoice_no }}</td>
-                                        <td onclick="viewSale({{ $sale->id }})">{{ $sale->customer->name }}</td>
+                                        <td onclick="viewSale({{ $sale->id }})">
+
+                                            @if ($sale->customer_name || $sale->customer_phone )
+                                                {{ $sale->customer_name }} <br>
+                                                <small>({{ $sale->customer_phone }})</small>
+                                            @else
+                                                {{ $sale->customer->name }} <br>
+                                                <small>({{ $sale->customer->mobile }})</small>
+                                            @endif
+                                        </td>
                                         <td onclick="viewSale({{ $sale->id }})">{{ $sale->total_amount }}</td>
                                         <td onclick="viewSale({{ $sale->id }})">
                                             @if ($sale->total_amount - $sale->paying_amount == 0)

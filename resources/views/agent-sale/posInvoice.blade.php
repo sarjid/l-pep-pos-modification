@@ -244,16 +244,16 @@
                                             </tr>
                                             <tr>
                                                 <td class="w-30">Customer Name:</td>
-                                                <td>{{ $sale->customer->name }}</td>
+                                                <td>{{ $sale->customer->name ?? $sale->customer_name }}</td>
                                             </tr>
                                             <tr>
                                                 <td class="w-30">Mobile:</td>
-                                                <td>{{ $sale->customer->mobile }}</td>
+                                                <td>{{ $sale->customer->mobile ?? $sale->customer_phone}}</td>
                                             </tr>
-                                            @if ($sale->customer->email)
+                                            @if ($sale->customer?->email)
                                                 <tr>
                                                     <td class="w-30">Email:</td>
-                                                    <td>{{ $sale->customer->email }}</td>
+                                                    <td>{{ $sale->customer->email ?? '' }}</td>
                                                 </tr>
                                             @endif
 

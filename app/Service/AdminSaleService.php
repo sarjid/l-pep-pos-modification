@@ -83,6 +83,7 @@ class AdminSaleService extends SaleService
                 'vat' => $request->vat,
                 'total_amount' => $request->total_amount,
                 'paying_amount' => $request->paying_amount,
+                'payment_type' => $request->payment_type,
                 'deliverycharge' => $request->deliverycharge,
                 'preorder' => $request->order_status,
             ]);

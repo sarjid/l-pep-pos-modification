@@ -28,7 +28,7 @@ class AdminPurchaseService extends PurchaseService
           });
       })
       ->orderByDesc('id')
-      ->paginate(25);
+      ->paginate(40);
 
     return view('purchase.index', [
       'purchases' => $purchases,

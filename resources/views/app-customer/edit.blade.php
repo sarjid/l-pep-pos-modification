@@ -37,23 +37,23 @@
                 @enderror
             </div>
 
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label for="">{{ __('page.common.email') }}</label>
                 <input type="email" class="form-control" name="email" value="{{ $customer->email }}" placeholder="Enter Email Address">
 
                 @error('email')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
-            </div>
+            </div> --}}
 
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label for="">{{ __('page.common.password') }}</label>
                 <input type="password" class="form-control" name="password" placeholder="Enter Password">
 
                 @error('password')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
-            </div>
+            </div> --}}
 
             <div class="text-right">
                 <button class="btn btn-success" type="submit" id="submit">{{ __('page.unit')[6] }}</button>

@@ -243,14 +243,14 @@
                                             </tr>
                                             <tr>
                                                 <td class="w-30">Customer Name:</td>
-                                                <td>{{ $sale->customer->name }}</td>
+                                                <td>{{ $sale->customer_name ?? $sale->customer->name }}</td>
                                             </tr>
-                                            @if ($sale->customer->name != 'Guest')
-                                                <tr>
-                                                    <td class="w-30">Phone:</td>
-                                                    <td>{{ $sale->customer->mobile }}</td>
-                                                </tr>
+                                            <tr>
+                                                <td class="w-30">Phone:</td>
+                                                <td>{{ $sale->customer_phone ?? $sale->customer->mobile }}</td>
+                                            </tr>
 
+                                            @if ($sale->customer->name != 'Guest')
                                                 @if ($sale->customer->city)
                                                     <tr>
                                                         <td class="w-30">Address:</td>

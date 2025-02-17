@@ -20,6 +20,7 @@
                 <i class="fa fa-user"></i>
             </span>
             <select name="contact_id" class="form-control select2" id="contact_id">
+
             </select>
             <span class="input-group-btn" style="margin-left: 1px">
                 <button style="cursor: pointer;" id="addNewCustomer" type="button"

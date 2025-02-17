@@ -24,7 +24,7 @@ class AgentSaleService extends SaleService
     {
         $sales = AgentSale::query()
             ->where('agent_id', auth()->id())
-            ->with('customer:id,name')
+            ->with(['customer:id,name,mobile'])
             ->when($request->app_customer_id, function ($query) use ($request) {
                 $query->where('app_customer_id', $request->app_customer_id);
             })
@@ -68,12 +68,15 @@ class AgentSaleService extends SaleService
                 'invoice_no' => AgentSale::nextInvoiceNo(),
                 'agent_id' => auth()->id(),
                 'app_customer_id' => $request->customer_id,
+                'customer_name' => $request->customer_name,
+                'customer_phone' => $request->customer_phone,
                 'sale_date' => date('Y-m-d'),
                 'sub_total' => $request->sub_total,
                 'discount_amount' => $request->discount_amount,
                 'vat' => $request->vat,
                 'total_amount' => $request->total_amount,
                 'paying_amount' => $request->paying_amount,
+                'payment_type' => $request->payment_type,
                 'deliverycharge' => $request->deliverycharge,
                 'created_by' => auth()->id()
             ]);

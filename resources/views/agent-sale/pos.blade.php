@@ -282,6 +282,30 @@
                             </div>
 
                             <div class="custom-scroll">
+                                <div class="customer-section">
+                                    <div class="mt-2">
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="" class="mt-2">Customer Name</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" name="customer_name">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-2">
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="" class="mt-2">Customer Phone</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" name="customer_phone">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="mt-4">
                                     <div class="form-group row">
                                         <div class="col-md-4">

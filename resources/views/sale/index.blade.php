@@ -86,7 +86,8 @@
                                                 {{ $sale->customer_name }} <br>
                                                 <small>({{ $sale->customer_phone }})</small>
                                             @else
-                                                {{ $sale->customer->name }}
+                                                {{ $sale->customer->name }} <br>
+                                                <small>({{ $sale->customer->mobile }})</small>
                                             @endif
                                         </td>
                                         <td onclick="viewSale({{ $sale->id }})">{{ $sale->user->name }}</td>

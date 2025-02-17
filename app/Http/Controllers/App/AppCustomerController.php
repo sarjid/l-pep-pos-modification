@@ -51,8 +51,8 @@ class AppCustomerController extends Controller
             'agent_id' => 'required',
             'name' => 'required',
             'mobile' => 'required|unique:app_customers,mobile',
-            'email' => 'nullable|unique:app_customers,email',
-            'password' => 'required'
+            // 'email' => 'nullable|unique:app_customers,email',
+            // 'password' => 'required'
         ]);
 
         AppCustomer::query()->create([
@@ -60,7 +60,7 @@ class AppCustomerController extends Controller
             'name' => $request->name,
             'mobile' => $request->mobile,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => Hash::make('12345678'),
             'created_by' => auth()->id()
         ]);
 
@@ -80,7 +80,7 @@ class AppCustomerController extends Controller
             'agent_id' => 'required',
             'name' => 'required',
             'mobile' => 'required|unique:app_customers,mobile,' . $id,
-            'email' => 'nullable|unique:app_customers,email,' . $id,
+            // 'email' => 'nullable|unique:app_customers,email,' . $id,
         ]);
 
         if ($request->password)

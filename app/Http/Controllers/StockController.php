@@ -25,7 +25,7 @@ class StockController extends Controller
                     ->limit(1);
             }])
             ->withStockProperties()
-            ->paginate(25);
+            ->paginate(40);
 
             // return $products;
 
