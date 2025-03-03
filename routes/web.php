@@ -241,6 +241,7 @@ Route::middleware(['auth'])->group(function () {
     ]);
     Route::get('/income-type/print/{incomeType}',[IncomeTypeController::class,'print'])->name('incomeType.print');
     Route::get('/income/all/json', [IncomeController::class, 'allIncomeJson'])->name('income.all');
+    Route::get('/history', [IncomeController::class, 'history'])->name('income.history');
 
     // Employee Routes
     Route::resource('/employee', EmployeeController::class);
@@ -348,7 +349,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/stock-transfer/create', [StockTransferController::class, 'create'])->name('stock-transfer.create');
     Route::post('/stock-transfer/store', [StockTransferController::class, 'store'])->name('stock-transfer.store');
     Route::get('/stock-transfer/{id}/show', [StockTransferController::class, 'show'])->name('stock-transfer.show');
-    Route::get('/stock-transfer/{id}/edit', [StockTransferController::class, 'edit'])->name('stock-transfer.edit');
+    Route::get('/stock-transfer/{stockTransfer}/edit', [StockTransferController::class, 'edit'])->name('stock-transfer.edit');
     Route::post('/stock-transfer/{id}/update', [StockTransferController::class, 'update'])->name('stock-transfer.update');
     Route::get('/stock-transfer/{id}/destroy', [StockTransferController::class, 'destroy'])->name('stock-transfer.destroy');
 

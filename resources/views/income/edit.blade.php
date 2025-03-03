@@ -5,7 +5,7 @@
 
             <div class="card-box">
                 <div class="d-flex justify-content-between">
-                    <a href="{{ route('income.index') }}" class="btn btn-primary waves-effect waves-light m-b-5">
+                    <a href="{{ route('income.index') }}" class="btn btn-success waves-effect waves-light m-b-5">
                         <i class="fa fa-arrow-left m-r-5"></i>
                         <span>{{ __('Back') }}</span>
                     </a>
@@ -85,38 +85,8 @@
 
 
 @push('js')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const rows = document.querySelectorAll('tbody tr');
-
-            rows.forEach(function(row) {
-                const inputs = row.querySelectorAll(
-                    'input[type="number"]');
-                const totalInput = row.querySelector(
-                    'input[name$="[total]"]');
-
-                inputs.forEach(function(input) {
-                    if (!input.name.endsWith('[total]')) {
-                        input.addEventListener('input', function() {
-                            let total = 0;
-                            inputs.forEach(function(field) {
-                                if (!field.name.endsWith('[total]') && !isNaN(
-                                        parseFloat(field.value))) {
-                                    total += parseFloat(field
-                                        .value);
-                                }
-                            });
-                            totalInput.value = total.toFixed(
-                                2);
-                        });
-                    }
-                });
-            });
-        });
-    </script>
+<script src="{{ asset('js/income.js') }}"></script>
 @endpush
-
-
 
 @push('css')
     <style>

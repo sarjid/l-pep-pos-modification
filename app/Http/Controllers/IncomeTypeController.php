@@ -151,4 +151,19 @@ class IncomeTypeController extends Controller
             'incomes' => $incomes
         ]);
     }
+
+
+    public function history()
+    {
+
+        return "Hello";
+
+        $year = $request->year;
+        $month = $request->month;
+
+        return $year.'+'.$month;
+        return view('income.history', [
+            // 'data' => $income->load(['details', 'details.user:id,name,employee_name'])
+        ]);
+    }
 }

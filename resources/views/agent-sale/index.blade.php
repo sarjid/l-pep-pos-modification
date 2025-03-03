@@ -74,8 +74,8 @@
                                                 {{ $sale->customer_name }} <br>
                                                 <small>({{ $sale->customer_phone }})</small>
                                             @else
-                                                {{ $sale->customer->name }} <br>
-                                                <small>({{ $sale->customer->mobile }})</small>
+                                                {{ $sale->customer?->name }} <br>
+                                                <small>({{ $sale->customer?->mobile }})</small>
                                             @endif
                                         </td>
                                         <td onclick="viewSale({{ $sale->id }})">{{ $sale->total_amount }}</td>

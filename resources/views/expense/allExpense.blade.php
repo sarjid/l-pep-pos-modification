@@ -16,7 +16,9 @@
                     <div class="col-md-6 text-right">
                         @if (permission('ex2'))
                             <button class="btn btn-primary waves-effect waves-light m-b-5" id="addNew"> <i
-                                    class="fa fa-plus-square m-r-5"></i> <span>{{ __('page.expense')[1] }}</span> </button>
+                                    class="fa fa-plus-square m-r-5"></i>
+                                    <span>{{ __('page.expense')[1] }}</span>
+                            </button>
                         @endif
                     </div>
                 </div>
@@ -126,8 +128,7 @@
                         orderable: false,
                         searchable: true
                     },
-                ]
-            });
+             });
             $('#filter-button').click(function() {
                 if ($('#year-select').val() != '' && $('#month-select').val() == '') {
                     alert("Please select month");

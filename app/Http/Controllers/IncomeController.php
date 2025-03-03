@@ -193,4 +193,41 @@ class IncomeController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+
+    public function history(Request $request)
+{
+    $year = $request->year;
+    $month = $request->month;
+
+    $incomes = Income::filterByYearAndMonth($year, $month)
+        ->with(['details.user'])
+        ->get();
+
+
+    $incomeTypes = $incomes->flatMap->details->flatMap->income_types->keys()->unique();
+
+    $employeeEarnings = [];
+
+    foreach ($incomes as $income) {
+        foreach ($income->details as $detail) {
+            $employee = $detail->user->employee_name . ' - ' . $detail->user->name;
+
+            if (!isset($employeeEarnings[$employee])) {
+                $employeeEarnings[$employee] = array_fill_keys($incomeTypes->toArray(), 0);
+            }
+
+            foreach ($detail->income_types as $type => $amount) {
+                $employeeEarnings[$employee][$type] += $amount;
+            }
+        }
+    }
+
+    return view('income.history', compact('year', 'month', 'incomeTypes', 'employeeEarnings'));
+}
+
+
+
+
+
 }

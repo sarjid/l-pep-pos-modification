@@ -144,6 +144,7 @@ return [
     'profit_loss' => 'Profit/Loss',
     'stock_transfer' => [
         'stock_transfer' => 'Stock Transfer',
+        'stock_transfer_edit' => 'Edit Stock Transfer',
         'stock_transfer_list' => 'Stock Transfer List',
         'sl' => 'SL',
         'sender' => 'Sender',

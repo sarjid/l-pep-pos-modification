@@ -264,3 +264,13 @@ if (!function_exists('incomeTypeInlineTotal')) {
         return str_replace(',', '', $num);
     }
 }
+
+
+
+if (!function_exists('sumAll')) {
+    function sumAll($data = [])
+    {
+        $result = array_sum($data);
+        return $result;
+    }
+}

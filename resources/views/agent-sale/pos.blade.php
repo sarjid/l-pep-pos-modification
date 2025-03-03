@@ -289,7 +289,7 @@
                                                 <label for="" class="mt-2">Customer Name</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <input type="text" class="form-control" name="customer_name">
+                                                <input type="text" id="cusName" class="form-control" name="customer_name">
                                             </div>
                                         </div>
                                     </div>
@@ -300,7 +300,7 @@
                                                 <label for="" class="mt-2">Customer Phone</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <input type="text" class="form-control" name="customer_phone">
+                                                <input type="text" id="cusPhone" class="form-control" name="customer_phone">
                                             </div>
                                         </div>
                                     </div>

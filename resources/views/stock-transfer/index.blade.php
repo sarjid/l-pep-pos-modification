@@ -92,6 +92,11 @@
                                                     <i class="fa fa-eye"></i>
                                                 </a>
 
+                                                <a href="{{ route('stock-transfer.edit',$transfer->id) }}"
+                                                    class="btn btn-sm btn-primary">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+
                                                 @if (!isRole(ROLE_AGENT))
                                                     <a href="{{ route('stock-transfer.destroy', $transfer->id) }}"
                                                         id="delete" class="btn btn-sm btn-danger" title="Delete">

@@ -7,7 +7,7 @@
             </div>
             <div class="card-box">
                 <div>
-                    <a href="{{ route('income.index') }}" class="btn btn-primary waves-effect waves-light m-b-5">
+                    <a href="{{ route('income.index') }}" class="btn btn-success waves-effect waves-light m-b-5">
                         <i class="fa fa-arrow-left m-r-5"></i>
                         <span>{{ __('Back') }}</span>
                     </a>
@@ -34,9 +34,10 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $detail->user->employee_name }} - <small>{{ $detail->user->name }}</small></td>
-                                        @foreach ($detail->income_types as $incmtype)
-                                            <td>{{ $incmtype }}</td>
+                                        @foreach ($detail->income_types as $index => $incmtype)
+                                            <td id="{{ $index }}">{{ $incmtype }} </td>
                                         @endforeach
+
                                         <td>{{ $detail->note }}</td>
                                         <td>{{ $detail->total }}</td>
                                     </tr>
@@ -45,6 +46,18 @@
                                         <td colspan="100%">{{ __('Not Found...!') }}</td>
                                     </tr>
                                 @endforelse
+
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <strong>Total</strong>
+                                    </td>
+                                    @foreach ($data->details->first()->income_types ?? [] as $inctypeName => $value)
+                                    <td></td>
+                                    @endforeach
+                                    <td></td>
+                                    <td></td>
+                                </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -76,3 +89,9 @@
         }
     </style>
 @endpush
+
+
+@push('js')
+
+@endpush
+

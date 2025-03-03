@@ -1,6 +1,10 @@
 function openInNewTab(url) {
     var win = window.open(url, "_blank");
-    win.focus();
+    if (win) {
+        win.focus();
+    } else {
+        console.error("Popup blocked or failed to open:", url);
+    }
 }
 
 if (SESSION_SALE_ID) openInNewTab(SESSION_SALE_ID);
@@ -423,12 +427,26 @@ $(".open-payment-modal").click(function () {
     var cartItems = $("#titems").text();
     // var isSelected = $('#contact_id').find(":selected").val();
     if (cartItems < 1) {
-        toastr.error("Your cart list is empty !");
+        var errorSound = new Audio('/sound/error.mp3');
+        errorSound.play();
+        toastr.error("আপনার তালিকায় কোনো পন্য নেই !!!");
+
     }else{
         if (cusSelection.val()) {
             $('.customer-section').hide();
         }else{
+            $('#checkout').prop('disabled', true);
             $('.customer-section').show();
+
+            $('#cusName, #cusPhone').on('input', function () {
+                var cusName = $('#cusName').val().trim();
+                var cusPhone = $('#cusPhone').val().trim();
+                if (cusName.length > 1 && cusPhone.length > 1) {
+                    $('#checkout').prop('disabled', false);
+                } else {
+                    $('#checkout').prop('disabled', true);
+                }
+            });
         }
         $(".payment-modal-lg").modal("show");
     }
@@ -444,6 +462,7 @@ $(".open-payment-modal").click(function () {
 // Close Modal on Button Click
 $(".close-payment-modal").click(function () {
     $(".payment-modal-lg").modal("hide");
+    $('#checkout').prop('disabled', false);
 });
 
 // Close Modal on Escape Key

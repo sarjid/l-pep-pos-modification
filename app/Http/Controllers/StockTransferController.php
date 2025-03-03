@@ -108,6 +108,17 @@ class StockTransferController extends Controller
         return back()->with('type', 'error')->with('message', 'Couldn\'t Transfer');
     }
 
+
+    public function edit(StockTransfer $stockTransfer)
+    {
+
+        $data =  $stockTransfer->load(['details','details.product','details.purchaseProduct']);
+        return $data;
+        return view('stock-transfer.edit',[
+            'transfer' => $data
+        ]);
+    }
+
     public function show(Request $request, $id)
     {
         $transfer = StockTransfer::query()

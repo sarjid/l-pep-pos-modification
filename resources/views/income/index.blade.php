@@ -16,32 +16,42 @@
                     <div class="col-md-6 text-right">
 
                         @if (permission('ex2'))
-                            <a href="{{ route('income.create') }}" class="btn btn-primary waves-effect waves-light m-b-5">
+                            <a href="{{ route('income.create') }}" class="btn btn-success btn-rounded waves-effect waves-light m-b-5">
                                 <i class="fa fa-plus-square m-r-5"></i>
                                 <span>{{ __('page.income')[1] }}</span>
                             </a>
                         @endif
+                        <a href="{{ route('income.history') }}" class="btn btn-success btn-rounded waves-effect waves-light m-b-5">
+                            <span>{{ __('Income History') }}</span>
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="d-flex justify-content-between">
-                        <div class="d-flex">
-                            <select id="year-select" class="form-control" style="width: 200px;">
-                                <option value="">Select Year</option>
-                                @for ($year = 2020; $year <= now()->year; $year++)
-                                    <option value="{{ $year }}">{{ $year }}</option>
-                                @endfor
-                            </select>
-                            <select id="month-select" class="form-control" style="width: 200px;">
-                                <option value="">Select Month</option>
-                                @for ($month = 1; $month <= 12; $month++)
-                                    <option value="{{ $month }}">
-                                        {{ DateTime::createFromFormat('!m', $month)->format('F') }}</option>
-                                @endfor
-                            </select>
-                            <button class="btn btn-sm btn-primary" id="filter-button"
-                                style="width: 60px;height: 38px;margin-left: 10px;">Filter</button>
-                        </div>
+
+                            <div class="d-flex">
+                                <select id="year-select" name="year" class="form-control" style="width: 200px;">
+                                    <option value="">Select Year</option>
+                                    @for ($year = 2020; $year <= now()->year; $year++)
+                                        <option value="{{ $year }}">{{ $year }}</option>
+                                    @endfor
+                                </select>
+                                <select id="month-select" name="month" class="form-control" style="width: 200px;">
+                                    <option value="">Select Month</option>
+                                    @for ($month = 1; $month <= 12; $month++)
+                                        <option value="{{ $month }}">
+                                            {{ DateTime::createFromFormat('!m', $month)->format('F') }}
+                                        </option>
+                                    @endfor
+                                </select>
+                                <button class="btn btn-sm btn-success btn-rounded" id="filter-button"
+                                    style="width: 60px;height: 38px;margin-left: 10px;">
+                                    Filter
+                                </button>
+
+
+                            </div>
+
                         <div>
                             <h4>Total Amount : <span class="text-danger" id="total-income"></span></h4>
                         </div>

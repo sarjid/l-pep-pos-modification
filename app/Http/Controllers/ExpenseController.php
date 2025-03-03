@@ -92,7 +92,7 @@ class ExpenseController extends Controller
                 $total_expense = Expense::sum('amount');
             }
 
-            $expense = $expensesQuery->get();
+            $expense = $expensesQuery->orderBy('id', 'desc')->get();
 
             $datatable = datatables()->of($expense)
                 ->addColumn('action', function ($data) {
