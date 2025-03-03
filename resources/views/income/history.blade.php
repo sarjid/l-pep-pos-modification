@@ -116,8 +116,14 @@ body{
                 </div>
 
 
-                <div class="rotate-content ">
-                    <h4 class="text-center">Monthly Income History OF {{ $month }}-{{ $year }}</h4>
+                <div class="rotate-content">
+                    <h4 class="text-center">
+                        @if ($month && $year)
+                            Monthly Income History OF {{ $month }}-{{ $year }}
+                        @else
+                            Life Time Income History
+                        @endif
+                    </h4>
 
                     <table class="table table-bordered">
                         <thead>
