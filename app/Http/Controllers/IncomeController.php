@@ -43,19 +43,20 @@ class IncomeController extends Controller
     public function store(Request $request)
     {
 
-        // dd($request->all());
         DB::beginTransaction();
         try {
             $income = Income::create(['income_date' => $request->income_date]);
             foreach ($request->income_types as $employeeId => $incomeData) {
                 $total = $incomeData['total'] ?? 0;
+                $isAbsent = $incomeData['is_absent'] ?? 0;
                 $note = $incomeData['note'];
-                unset($incomeData['total'], $incomeData['note']);
+                unset($incomeData['total'], $incomeData['note'],$incomeData['is_absent']);
 
                 $income->details()->create([
                     'user_id' => $employeeId,
                     'income_types' => $incomeData,
                     'total' => $total,
+                    'is_absent' => $isAbsent,
                     'note' => $note,
                 ]);
             }
@@ -102,19 +103,22 @@ class IncomeController extends Controller
      */
     public function update(Request $request, Income $income)
     {
+
         DB::beginTransaction();
         try {
             $income->update(['income_date' => $request->income_date]);
             foreach ($request->income_types as $employeeId => $incomeData) {
                 $total = $incomeData['total'] ?? 0;
+                $isAbsent = $incomeData['is_absent'] ?? 0;
                 $note = $incomeData['note'];
-                unset($incomeData['total'], $incomeData['note']);
+                unset($incomeData['total'], $incomeData['note'],$incomeData['is_absent']);
 
                 $incomeDetail = $income->details()->where('user_id', $employeeId)->first();
                 if ($incomeDetail) {
                     $incomeDetail->update([
                         'income_types' => $incomeData,
                         'total' => $total,
+                        'is_absent'=> $isAbsent,
                         'note' => $note,
                     ]);
                 }

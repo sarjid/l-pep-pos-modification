@@ -15,6 +15,7 @@
                                 <div class="row d-flex justify-content-end">
                                     @php
                                        $users = \App\Models\User::query()
+                                            ->active()
                                             ->get();
                                     @endphp
                                     @if (permission('filterByUser'))

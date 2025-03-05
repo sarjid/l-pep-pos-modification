@@ -32,7 +32,7 @@
                             <div class="d-flex">
                                 <select id="year-select" name="year" class="form-control" style="width: 200px;">
                                     <option value="">Select Year</option>
-                                    @for ($year = 2020; $year <= now()->year; $year++)
+                                    @for ($year = 2024; $year <= now()->year; $year++)
                                         <option value="{{ $year }}">{{ $year }}</option>
                                     @endfor
                                 </select>
@@ -48,7 +48,6 @@
                                     style="width: 60px;height: 38px;margin-left: 10px;">
                                     Filter
                                 </button>
-
 
                             </div>
 

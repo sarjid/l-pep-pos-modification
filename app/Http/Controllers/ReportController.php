@@ -23,6 +23,8 @@ class ReportController extends Controller
 {
     public function saleReport(SaleReportDataTable $dataTable)
     {
+
+        // dd('hello')
         return $dataTable->render('report.saleReport');
     }
 

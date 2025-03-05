@@ -19,6 +19,7 @@ class CreateIncomeDetailsTable extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->text('income_types');
             $table->text('note')->nullable();
+            $table->tinyInteger('is_absent')->default(0);
             $table->double('total',8,2);
             $table->timestamps();
         });

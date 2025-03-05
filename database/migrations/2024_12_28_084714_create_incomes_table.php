@@ -20,6 +20,7 @@ class CreateIncomesTable extends Migration
             $table->date('income_date');
             // $table->double('amount', 8, 2);
             // $table->text('note')->nullable();
+
             $table->timestamps();
         });
     }

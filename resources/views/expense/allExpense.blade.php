@@ -128,6 +128,7 @@
                         orderable: false,
                         searchable: true
                     },
+                ]
              });
             $('#filter-button').click(function() {
                 if ($('#year-select').val() != '' && $('#month-select').val() == '') {

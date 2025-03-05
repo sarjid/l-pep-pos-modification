@@ -34,6 +34,7 @@
                                         <th>{{ $incmtype->income_type }}</th>
                                     @endforeach
                                     <th>{{ __('Note') }}</th>
+                                    <th>{{ __('Mark as Absent') }}</th>
                                     <th>{{ __('Total') }}</th>
                                 </tr>
                             </thead>
@@ -55,6 +56,9 @@
                                         <td>
                                             <input type="text" name="income_types[{{ $user->id }}][note]"
                                                 class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" value="1" name="income_types[{{ $user->id }}][is_absent]"  class="form-control">
                                         </td>
                                         <td>
                                             <input type="number" name="income_types[{{ $user->id }}][total]"

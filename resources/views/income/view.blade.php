@@ -26,12 +26,13 @@
                                         <th>{{ $inctypeName }}</th>
                                     @endforeach
                                     <th>{{ __('Note') }}</th>
+                                    <th>{{ __('Attendance') }}</th>
                                     <th>{{ __('Total') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($data->details as $detail)
-                                    <tr>
+                                    <tr style="{{ $detail->is_absent ? 'background: #f7a8a8;' : '' }} ">
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $detail->user->employee_name }} - <small>{{ $detail->user->name }}</small></td>
                                         @foreach ($detail->income_types as $index => $incmtype)
@@ -39,38 +40,43 @@
                                         @endforeach
 
                                         <td>{{ $detail->note }}</td>
-                                        <td>{{ $detail->total }}</td>
+                                        <td>{{ $detail->is_absent ? 'Absent': 'Present' }}</td>
+                                        <td>
+                                            <strong>{{ $detail->total }}</strong>
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
                                         <td colspan="100%">{{ __('Not Found...!') }}</td>
                                     </tr>
                                 @endforelse
-
-                                <tr>
-                                    <td></td>
-                                    <td>
-                                        <strong>Total</strong>
-                                    </td>
-                                    @foreach ($data->details->first()->income_types ?? [] as $inctypeName => $value)
-                                    <td></td>
-                                    @endforeach
-                                    <td></td>
-                                    <td></td>
-                                </tr>
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="{{ $data->details->first() ? count($data->details->first()->income_types) + 3 : 5 }}">
-                                        <strong>{{ __('Total') }} =</strong>
-                                    </td>
-                                    <td>
-                                        <strong>
-                                            {{ $data->details->sum('total') }}
-                                        </strong>
-                                    </td>
-                                </tr>
-                            </tfoot>
+
+                            @php
+                                $incomeTypeTotals = [];
+
+                                foreach ($data->details as $detail) {
+                                    foreach ($detail->income_types as $type => $amount) {
+                                        if (!isset($incomeTypeTotals[$type])) {
+                                            $incomeTypeTotals[$type] = 0;
+                                        }
+                                        $incomeTypeTotals[$type] += $amount;
+                                    }
+                                }
+                            @endphp
+
+                        <tfoot>
+                            <tr>
+                                <td colspan="2"><strong>{{ __('Total') }}</strong></td>
+                                @foreach ($incomeTypeTotals as $type => $total)
+                                    <td><strong>{{ $total }}</strong></td>
+                                @endforeach
+                                <td></td>
+                                <td></td>
+                                <td><strong>{{ $data->details->sum('total') }}</strong></td>
+                            </tr>
+                        </tfoot>
+
                         </table>
 
                     </div>

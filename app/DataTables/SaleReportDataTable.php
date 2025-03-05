@@ -39,23 +39,37 @@ class SaleReportDataTable extends DataTable
             ]);
     }
 
-    public function query()
-    {
-        $request = request();
+    // public function query()
+    // {
+    //     $request = request();
 
-        return Sale::query()
-            ->when($request->start && $request->end, fn ($query) => $query->whereBetween('sale_date', [$request->start, $request->end]))
-            ->when($request->user, fn ($query) => $query->where("user_id", $request->user))
-            ->addSelect([
-                'customer_name' => function ($q) {
-                    $q->select('name')
-                        ->from('contacts')
-                        ->whereColumn('contacts.id', 'sales.contact_id')
-                        ->limit(1);
-                }
-            ])
-            ->orderBy('id', 'desc');
-    }
+    //     return Sale::query()
+    //         ->when($request->start && $request->end, fn ($query) => $query->whereBetween('sale_date', [$request->start, $request->end]))
+    //         ->when($request->user, fn ($query) => $query->where("user_id", $request->user))
+    //         ->addSelect([
+    //             'customer_name' => function ($q) {
+    //                 $q->select('name')
+    //                     ->from('contacts')
+    //                     ->whereColumn('contacts.id', 'sales.contact_id')
+    //                     ->limit(1);
+    //             }
+    //         ])
+    //         ->orderBy('id', 'desc');
+    // }
+
+    public function query()
+{
+    $request = request();
+    $model = ($request->user == 1) ? Sale::query() : \App\Models\AgentSale::query();
+
+    return $model
+        ->when($request->start && $request->end, fn($query) => $query->whereBetween('sale_date', [$request->start, $request->end]))
+        ->when($request->user, fn($query) => $query->where("user_id", $request->user))
+        ->orderBy('id', 'desc');
+}
+
+
+
 
     protected function getColumns()
     {
