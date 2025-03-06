@@ -137,7 +137,7 @@ body{
                                     <th>{{ __('Employee Name') }}</th>
                                     <th>{{ __('W/D') }}</th>
                                     <th>{{ __('Target') }}</th>
-                                    <th>{{ __('A/A') }}</th>
+                                    <th>{{ __('A/A%') }}</th>
                                     @foreach ($incomeTypes as $type)
                                         <th>{{ $type }}</th>
                                     @endforeach
@@ -153,9 +153,9 @@ body{
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $employee }}</td>
-                                        <td>{{ $employee }}</td>
-                                        <td>{{ $employee }}</td>
-                                        <td>{{ $employee }}</td>
+                                        <td>{{ $employeeWorkingDays[$employee] ?? 0 }}</td>
+                                        <td>{{ number_format($employeeTargets[$employee]) }}</td>
+                                        <td>{{ number_format($employeeAA[$employee],2) }}%</td>
                                         @php $rowTotal = 0; @endphp
 
                                         @foreach ($incomeTypes as $type)
@@ -175,13 +175,13 @@ body{
                             <tfoot>
                                 <tr>
                                     <td colspan="2"><strong>{{ __('Total') }}</strong></td>
-                                    <td ><strong>{{ __('Total') }}</strong></td>
-                                    <td ><strong>{{ __('Total') }}</strong></td>
-                                    <td ><strong>{{ __('Total') }}</strong></td>
+                                    <td><strong>{{ $totalWorkingDays }}</strong></td>
+                                    <td><strong>{{ number_format($totalTarget) }}</strong></td>
+                                    <td><strong>{{ number_format($averageAA, 2) }}%</strong></td>
                                     @foreach ($incomeTypes as $type)
-                                        <td><strong>{{ $incomeTypeTotals[$type] }}</strong></td>
+                                        <td><strong>{{ number_format($incomeTypeTotals[$type]) }}</strong></td>
                                     @endforeach
-                                    <td><strong>{{ $grandTotal }}</strong></td>
+                                    <td><strong>{{ number_format($grandTotal) }}</strong></td>
                                 </tr>
                             </tfoot>
                         </table>
