@@ -17,7 +17,7 @@ return [
     ],
     'sale' => ["Sale", "Pos", "Manage Sale", "List Sale Return"],
     'quotation' => ["Quotation", "Add Quotation", "Manage Quotation"],
-    'report' => ["Report", "Profit and/or Loss", "Product Report", "Category Report", "Sales Report", "Daily Sales Report", "Monthly Sales Report", "Purchase Report", "Customer Report", "Supplier Report"],
+    'report' => ["Report", "Profit and/or Loss", "Product Report", "Category Report", "Sales Report", "Daily Sales Report", "Monthly Sales Report", "Purchase Report", "Customer Report", "Supplier Report","Agent Sales Report"],
     'expense' => ["Expense", "Expense List", "Expense Category"],
     'income' => ["Income", "Income List", "Income Category"],
     'asset' => ["Asset", "Asset List", "Asset Category"],

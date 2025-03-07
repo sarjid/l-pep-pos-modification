@@ -201,92 +201,6 @@ class IncomeController extends Controller
 
 
 
-    // public function history(Request $request)
-    // {
-    //     $year = $request->year;
-    //     $month = $request->month;
-
-    //     // Get income data filtered by year and month
-    //     $incomes = Income::filterByYearAndMonth($year, $month)
-    //         ->with(['details.user'])
-    //         ->get();
-
-    //     // Extract all unique income types
-    //     $incomeTypes = $incomes->flatMap->details->flatMap->income_types->keys()->unique();
-
-    //     $employeeEarnings = [];
-    //     $employeeWorkingDays = [];
-    //     $employeeTargets = [];
-    //     $employeeAA = [];
-    //     $incomeTypeTotals = array_fill_keys($incomeTypes->toArray(), 0); // Initialize income type totals
-
-    //     $totalWorkingDays = 0;
-    //     $totalTarget = 0;
-    //     $totalAA = 0;
-    //     $grandTotal = 0; // Initialize grand total
-
-    //     $employeesCount = 0; // Track the actual number of distinct employees
-
-    //     foreach ($incomes as $income) {
-    //         foreach ($income->details as $detail) {
-    //             $employee = $detail->user->employee_name . ' - ' . $detail->user->name;
-
-    //             // Initialize earnings array if not set
-    //             if (!isset($employeeEarnings[$employee])) {
-    //                 $employeeEarnings[$employee] = array_fill_keys($incomeTypes->toArray(), 0);
-    //                 $employeesCount++; // Count distinct employees
-    //             }
-
-    //             // Count total working days in the selected month
-    //             if (!isset($employeeWorkingDays[$employee])) {
-    //                 // Assuming the employee works for every income record in that month
-    //                 $employeeWorkingDays[$employee] = $incomes->count(); // Total number of income records
-    //             }
-
-    //             // Subtract absent days (is_absent = 1)
-    //             if ($detail->user->is_absent == 1) {
-    //                 $employeeWorkingDays[$employee] -= 1; // Decrease working days for absence
-    //             }
-
-    //             // Add income types to employee earnings
-    //             foreach ($detail->income_types as $type => $amount) {
-    //                 $employeeEarnings[$employee][$type] += $amount;
-    //                 $incomeTypeTotals[$type] += $amount; // Sum income type totals
-    //             }
-    //         }
-    //     }
-
-    //     // Calculate Target, A/A%, and other totals
-    //     foreach ($employeeEarnings as $employee => $earnings) {
-    //         $workingDays = $employeeWorkingDays[$employee] ?? 0;
-    //         $target = $workingDays * 3500; // Target = 3500 * working days
-    //         $employeeTargets[$employee] = $target;
-
-    //         $rowTotal = array_sum($earnings); // Total earnings for the employee
-
-    //         // Calculate A/A% (Actual / Target) * 100 for percentage
-    //         $employeeAA[$employee] = ($target > 0) ? ($rowTotal / $target) * 100 : 0;
-
-    //         // Accumulate total working days, target, and A/A% for averaging
-    //         $totalWorkingDays += $workingDays;
-    //         $totalTarget += $target;
-    //         $totalAA += $employeeAA[$employee];
-
-    //         // Add rowTotal to grandTotal
-    //         $grandTotal += $rowTotal;
-    //     }
-
-    //     // Calculate average A/A% (avoid division by zero)
-    //     $averageAA = ($employeesCount > 0) ? ($totalAA / $employeesCount) : 0;
-
-    //     return view('income.history', compact(
-    //         'year', 'month', 'incomeTypes', 'employeeEarnings',
-    //         'employeeWorkingDays', 'employeeTargets', 'employeeAA',
-    //         'totalWorkingDays', 'totalTarget', 'averageAA', 'incomeTypeTotals', 'grandTotal'
-    //     ));
-    // }
-
-
     public function history(Request $request)
     {
         $year = $request->year;
@@ -357,7 +271,6 @@ class IncomeController extends Controller
             $grandTotal += $rowTotal;
         }
 
-        // Calculate average A/A% (avoid division by zero)
         $averageAA = ($totalEmployees > 0) ? ($totalAA / $totalEmployees) : 0;
 
         return view('income.history', compact(

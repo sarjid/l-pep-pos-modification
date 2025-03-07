@@ -60,9 +60,9 @@ class SaleReportDataTable extends DataTable
     public function query()
 {
     $request = request();
-    $model = ($request->user == 1) ? Sale::query() : \App\Models\AgentSale::query();
+    // $model = ($request->user == 1) ? Sale::query() : \App\Models\AgentSale::query();
 
-    return $model
+    return Sale::query()
         ->when($request->start && $request->end, fn($query) => $query->whereBetween('sale_date', [$request->start, $request->end]))
         ->when($request->user, fn($query) => $query->where("user_id", $request->user))
         ->orderBy('id', 'desc');

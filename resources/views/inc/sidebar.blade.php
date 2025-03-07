@@ -1,8 +1,6 @@
 <div class="left side-menu">
     <div class="sidebar-inner slimscrollleft">
 
-
-
         <!--- Sidemenu -->
         <div id="sidebar-menu">
             <ul>
@@ -495,9 +493,9 @@
                                 <li><a href="{{ route('report.category') }}">{{ __('sidebar.report')[3] }}</a>
                                 </li>
                                 <li><a href="{{ route('report.sale') }}">{{ __('sidebar.report')[4] }}</a></li>
-                                <li><a
-                                        href="{{ route('report.dailySaleReport') }}">{{ __('sidebar.report')[5] }}</a>
-                                </li>
+                                <li><a href="{{ route('report.sale') }}">{{ __('sidebar.report')[10] }}</a></li>
+                                <li><a href="{{ route('report.dailySaleReport') }}">{{ __('sidebar.report')[5] }}</a></li>
+
                                 <li><a
                                         href="{{ route('report.monthlySaleReport') }}">{{ __('sidebar.report')[6] }}</a>
                                 </li>

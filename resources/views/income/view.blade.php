@@ -40,7 +40,7 @@
                                         @endforeach
 
                                         <td>{{ $detail->note }}</td>
-                                        <td>{{ $detail->is_absent ? 'Absent': 'Present' }}</td>
+                                        <td>{{ $detail->is_absent ? 'Off Duty': 'On Duty' }}</td>
                                         <td>
                                             <strong>{{ $detail->total }}</strong>
                                         </td>

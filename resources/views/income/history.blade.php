@@ -14,16 +14,16 @@
 
     /* Rotating the entire content */
     .rotate-content {
-    display: flex;
-    flex-direction: column; /* Ensure content flows normally */
-    writing-mode: vertical-rl; /* Keep it rotated */
-    text-align: center;
-    align-items: center; /* Center horizontally */
-    justify-content: flex-start; /* Align content to the top */
-    height: 100%;
-    width: 100%;
-    white-space: nowrap;
-}
+        display: flex;
+        flex-direction: column; /* Ensure content flows normally */
+        writing-mode: vertical-rl; /* Keep it rotated */
+        text-align: center;
+        align-items: center; /* Center horizontally */
+        justify-content: flex-start; /* Align content to the top */
+        height: 100%;
+        width: 100%;
+        white-space: nowrap;
+    }
 
 
     /* Table styles */
@@ -51,6 +51,9 @@
     body{
         background: #fff;
         padding: 0;
+    }
+    .img-logo{
+        display: block !important;
     }
 
 
@@ -121,6 +124,7 @@ body{
 
 
                 <div class="rotate-content">
+                    <img src="/{{ currentBranch()->logo }}" style="height: 80px; width: 80px;  rotate: 90deg;" class="d-none img-logo">
                     <h4 class="text-center">
                         @if ($month && $year)
                             Monthly Income History OF {{ $month }}-{{ $year }}

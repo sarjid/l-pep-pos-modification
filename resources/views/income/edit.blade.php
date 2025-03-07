@@ -35,7 +35,7 @@
                                         <th>{{ $inctypeName }}</th>
                                     @endforeach
                                     <th>{{ __('Note') }}</th>
-                                    <th>{{ __('Mark as Absent') }}</th>
+                                    <th>{{ __('Mark as Off Duty') }}</th>
                                     <th>{{ __('Total') }}</th>
                                 </tr>
                             </thead>
