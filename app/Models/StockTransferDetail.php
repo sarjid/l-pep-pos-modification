@@ -25,4 +25,6 @@ class StockTransferDetail extends Model
     {
         return $this->belongsTo(PurchaseProduct::class);
     }
+
+
 }

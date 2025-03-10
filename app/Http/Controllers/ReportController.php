@@ -18,6 +18,8 @@ use App\DataTables\PurchaseReportDataTable;
 use App\DataTables\SupplierReportDataTable;
 use App\DataTables\DailySaleReportDataTable;
 use App\DataTables\MonthlySaleReportDataTable;
+use App\Models\AgentSale;
+use App\Models\User;
 
 class ReportController extends Controller
 {
@@ -127,5 +129,50 @@ class ReportController extends Controller
     public function soldProduct(SoldReportDataTable $dataTable)
     {
         return $dataTable->render('report.soldProductReport');
+    }
+
+
+    public function agentSaleReport()
+    {
+
+        $startDate = request('start_date');
+        $endDate = request('end_date');
+        $user = request('user');
+        $query = AgentSale::query()
+                ->when($user, function ($query) use ($user) {
+                    return $query->where('agent_id', $user);
+                })
+                ->filterByDate($startDate, $endDate)
+                ->with([
+                    'agent:id,name,employee_name',
+                    'customer:id,agent_id,name,mobile',
+                    'saleProducts:id,agent_sale_id,stock_transfer_detail_id,qty,price,total_price',
+                    'saleProducts.stockTransferDetail:id,purchase_product_id',
+                    'saleProducts.stockTransferDetail.purchaseProduct:id,purchase_price'
+                ]);
+
+        $results = $query->paginate(10);
+
+        $results->map(function ($sale) {
+            $purchaseAmount = 0;
+            $sale->saleProducts->map(function ($saleProduct) use ( &$purchaseAmount) {
+                if ($saleProduct->stockTransferDetail && $saleProduct->stockTransferDetail->purchaseProduct) {
+                    $purchasePrice = $saleProduct->stockTransferDetail->purchaseProduct->purchase_price;
+                    $purchaseAmount += $purchasePrice * $saleProduct->qty;
+                }
+            });
+            unset($sale->saleProducts);
+            $sale->purchase_amount = $purchaseAmount;
+            $sale->profit_amount = $sale->total_amount - $purchaseAmount;
+            return $sale;
+        });
+
+
+
+        return view('report.agentSales',[
+            'agents' => User::active()->agent()->get(['id','name','employee_name']),
+            'sales' => $results,
+            'total_profit' =>  $results->sum('profit_amount')
+        ]);
     }
 }

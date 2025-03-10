@@ -31,7 +31,7 @@ return [
     'openblance' => ["Current Balance", "Total Deposit", "Total Withdraw", "Balance", "Balance Type", "Business Branch", "Account Type", "Amount", "Remark", "Deposit", "Withdraw", "Deposit History", "Withdraw History", "Sl", "Business Branch", "Amount", "Action"],
     'branch' => ["Business Branches", "Add New Business Branches", "SL", "Name", "Start Date", "City", "Zip", "Country", "Mobile", "Status", 'Action', "Logo"],
     "vatsd" => ["VAT/SD GROUP", "Add New VAT/SD GROUP", "SL", "VAT/SD GROUP Name", "Parcentage", "Action"],
-    'sale' => ["Sale List", "Sl", "Date", "Invoice No", "Business Branch", "Customer", "Sell By", "Total Amount", "Paying Amount", "Payment Stauts", "Due", "Action"],
+    'sale' => ["Sale List", "Sl", "Date", "Invoice No", "Business Branch", "Customer", "Sell By", "Total Amount", "Paying Amount", "Payment Status", "Due", "Action"],
     'salereturn' => ["Sale Return List", "Sl", "Date", "Invoice No", "Business Branch", "Customer", "Total Amount", "Paying Amount", "Payment Stauts", "Due", "Action"],
     'quotation' => ['Add New Quotation', 'Customer Name', "Quotation Date", "Business Branch", "Note", "Enter Product Name / SKU / Scan barcode", "Product Name", "Quantity", "Unit Price", "Total Cost", "Subtotal", "VAT/SD(+)", "Total Amount"],
     'quotationmange' => ["Quotation List", "Add New Quotation", 'Sl', "Quotation No", "Quotation Date", "Customer", "Total Amount", "Business Branch", 'Action'],

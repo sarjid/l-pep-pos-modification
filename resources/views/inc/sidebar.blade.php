@@ -493,7 +493,7 @@
                                 <li><a href="{{ route('report.category') }}">{{ __('sidebar.report')[3] }}</a>
                                 </li>
                                 <li><a href="{{ route('report.sale') }}">{{ __('sidebar.report')[4] }}</a></li>
-                                <li><a href="{{ route('report.sale') }}">{{ __('sidebar.report')[10] }}</a></li>
+                                <li><a href="{{ route('agent.sale.report') }}">{{ __('sidebar.report')[10] }}</a></li>
                                 <li><a href="{{ route('report.dailySaleReport') }}">{{ __('sidebar.report')[5] }}</a></li>
 
                                 <li><a

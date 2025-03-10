@@ -276,6 +276,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/product/report', [ReportController::class, 'productReport'])->name('report.product');
     Route::get('/report/category', [ReportController::class, 'categoryReport'])->name('report.category');
     Route::get('/report/sale', [ReportController::class, 'saleReport'])->name('report.sale');
+    Route::get('/report/agent/sale',[ReportController::class,'agentSaleReport'])->name('agent.sale.report');
     Route::get('/report/purchase', [ReportController::class, 'purchaseReport'])->name('report.purchase');
     Route::get('/report/daily/sale', [ReportController::class, 'dailySaleReport'])->name('report.dailySaleReport');
     Route::get('/report/monthly/sale', [ReportController::class, 'monthlySaleReport'])->name('report.monthlySaleReport');

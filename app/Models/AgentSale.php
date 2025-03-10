@@ -54,4 +54,22 @@ class AgentSale extends Model
 
         return $query;
     }
+
+
+    public function scopeFilterByDate(Builder $query, $start_date = null, $end_date = null): Builder
+    {
+
+        if ($start_date && $end_date) {
+            $query->whereBetween('sale_date', [$start_date,$end_date]);
+        }
+
+        return $query;
+    }
+
+
+
+
+
+
+
 }
