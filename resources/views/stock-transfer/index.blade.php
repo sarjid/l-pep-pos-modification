@@ -19,7 +19,7 @@
                                 <div class="form-group">
                                     <label for="agent_id">{{ __('page.common.agent') }}</label>
                                     <select name="agent_id" id="agent_id" class="form-control">
-                                        <option value="">Select Agent</option>
+                                        <option value="">All Agent</option>
                                         @foreach (getCachedAgents() as $agent)
                                             <option value="{{ $agent->id }}"
                                                 {{ request('agent_id') == $agent->id ? 'selected' : '' }}>
@@ -30,16 +30,25 @@
                             </div>
                         @endif
                         <div class="col-md-3">
+
                             <div class="form-group">
                                 <label for="date">{{ __('page.stock_transfer.date') }}</label>
-                                <input type="text" class="form-control datepicker px-2" name="date" placeholder="YYYY-MM-DD"
-                                    value="{{ request('date') }}">
+                                <div class="
+                                input-daterange input-group" id="date-range">
+                                <input type="text" placeholder="Start Date"
+                                    class="form-control datepicker startdate" name="start"
+                                    value="{{ request('start') ?? '' }}" >
+                                <span class="input-group-addon bg-success b-0 text-white">to</span>
+                                <input type="text" placeholder="End Date"
+                                    class="form-control datepicker enddate" name="end"
+                                    value="{{ request('end') ?? '' }}">
                             </div>
+                        </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="date">{{ 'Search Text' }}</label>
-                                <input type="text" class="form-control" name="search" placeholder="Enter search text"
+                                <input type="text" class="form-control" name="search" placeholder="invoice,total qty or product name"
                                     value="{{ request('search') }}">
                             </div>
                         </div>
@@ -48,6 +57,7 @@
                                 <label for="">&nbsp;</label>
                                 <button type="submit" class="form-control btn btn-info d-block" style="width: auto"><i
                                         class="fa fa-search"></i> Search</button>
+
                             </div>
                         </div>
                     </div>
@@ -111,7 +121,7 @@
 
                             <tfoot>
                                 <tr>
-                                    <th colspan="3"></th>
+                                    <th colspan="4"></th>
                                     <th>Total</th>
                                     <th>{{ $totalQuantity }}</th>
                                 </tr>

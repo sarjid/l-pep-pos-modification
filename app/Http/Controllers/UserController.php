@@ -51,6 +51,7 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->mobile = $request->mobile;
             $user->password = Hash::make($request->password);
+            $user->status = 1;
             $user->user_type = 'staff';
             $user->save();
 

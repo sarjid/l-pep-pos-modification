@@ -30,7 +30,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <input type="text" name="search" value="{{ request('search') ?? '' }}"
-                                        class="form-control" placeholder="Enter Supplier Name or Invoice">
+                                        class="form-control" placeholder="Supplier Name, product name or Invoice">
                                 </div>
                             </div>
                             <div class="col-md-1">

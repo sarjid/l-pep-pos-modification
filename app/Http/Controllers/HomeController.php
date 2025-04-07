@@ -12,6 +12,7 @@ use App\Models\SaleReturn;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\ContactPayment;
+use App\Models\Employee;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -87,6 +88,53 @@ class HomeController extends Controller
 
         $todaySale = isRole(ROLE_AGENT) ? AgentSale::where('agent_id', auth()->user()->id)->where('sale_date', date("Y-m-d"))->sum('total_amount') : Sale::where('sale_date', date("Y-m-d"))->sum('total_amount');
 
+        $purchase = Purchase::query()
+        ->when($request->start && $request->end, function ($query) use ($request) {
+            $query->whereBetween("purchase_date", [$request->start, $request->end]);
+        })
+        ->sum('total');
+
+    $sales = Sale::query()
+        ->when($request->start && $request->end, function ($query) use ($request) {
+            $query->whereBetween("sale_date", [$request->start, $request->end]);
+        })
+        ->sum('total_amount');
+
+    $return = SaleReturn::query()
+        ->when($request->start && $request->end, function ($query) use ($request) {
+            $query->whereBetween("return_date", [$request->start, $request->end]);
+        })
+        ->sum('total_amount');
+
+
+    $receive_payment = Contact::join('contact_payments', "contact_payments.contact_id", "=", "contacts.id")
+        ->when($request->start && $request->end, function ($query) use ($request) {
+            $query->whereBetween("contact_payments.paying_date", [$request->start, $request->end]);
+        })
+        ->where('contacts.type', "=", 'customer')
+        ->sum('paying_amount');
+
+    $send_payment = Contact::join('contact_payments', "contact_payments.contact_id", "=", "contacts.id")
+        ->when($request->start && $request->end, function ($query) use ($request) {
+            $query->whereBetween("contact_payments.paying_date", [$request->start, $request->end]);
+        })
+        ->where('contacts.type', "=", 'supplier')
+        ->sum('paying_amount');
+
+    $expense = Expense::query()
+        ->when($request->start && $request->end, function ($query) use ($request) {
+            $query->whereBetween("expanse_date", [$request->start, $request->end]);
+        })
+        ->sum('amount');
+
+    $salary =  Employee::join('salaries', "salaries.employee_id", "=", "employees.id")
+        ->when($request->start && $request->end, function ($query) use ($request) {
+            $query->whereBetween("salaries.salary_date", [$request->start, $request->end]);
+        })
+        ->sum('amount');
+
+
+
         return view('home', [
             'datas' => $datas,
             'best_sale_product' => $best_sale_products->pluck('total_sale'),
@@ -99,6 +147,13 @@ class HomeController extends Controller
             'supplier_payable' => $supplier_payable,
             'popular_customers' => $popular_customer,
             'products' => $products,
+            'purchase' => $purchase,
+            'sale' => $sales,
+            'return' => $return,
+            'receive_payment' => $receive_payment,
+            'send_payment' => $send_payment,
+            'expense' => $expense,
+            'salary' => $salary,
         ]);
     }
 

@@ -38,16 +38,16 @@
                                 <div class="col-md-5">
                                     <div class="">
                                         <div class="input-daterange input-group" id="date-range">
-                                        <input type="text" placeholder="Start Date"
-                                            class="form-control datepicker startdate" name="start_date"
-                                            value="{{ request('start_date') ?? '' }}" autocomplete="off" >
-                                        <span class="input-group-addon bg-success b-0 text-white">to</span>
-                                        <input type="text" placeholder="End Date"
-                                            class="form-control datepicker enddate" name="end_date"
-                                            value="{{ request('end_date') ?? '' }}" autocomplete="off" >
+                                            <input type="text" placeholder="Start Date"
+                                                class="form-control datepicker startdate" name="start_date"
+                                                value="{{ request('start_date') ?? '' }}" autocomplete="off">
+                                            <span class="input-group-addon bg-success b-0 text-white">to</span>
+                                            <input type="text" placeholder="End Date"
+                                                class="form-control datepicker enddate" name="end_date"
+                                                value="{{ request('end_date') ?? '' }}" autocomplete="off">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
                                 <div class="col-md-2">
                                     <button type="submit" class="btn btn-success" style="cursor: pointer;">Search</button>
@@ -59,12 +59,13 @@
 
                 <div class="table-rep-plugin" style="margin-top: -10px;">
                     <div class="table-responsive" id="okkkk">
-                        <table id="tech-companies-1" class="table table-bordered" >
+                        <table id="tech-companies-1" class="table table-bordered">
                             <thead class="theme-primary text-white" style="">
                                 <tr>
                                     <th>{{ __('page.sale')[1] }}</th>
                                     <th>{{ __('page.sale')[2] }}</th>
                                     <th>{{ __('page.sale')[3] }}</th>
+                                    <th>{{ __('Sector Name') }}</th>
                                     <th>{{ __('page.sale')[5] }}</th>
                                     <th>{{ __('page.sale')[6] }}</th>
                                     <th>{{ __('page.sale')[7] }}</th>
@@ -84,7 +85,13 @@
                                         <td>{{ $sale->sale_date }}</td>
                                         <td>{{ date('Y') . $sale->id }}</td>
                                         <td>
-                                            @if ($sale->customer_name || $sale->customer_phone )
+                                            @forelse ($sale->saleProducts as $data)
+                                                <span>{{ $data->product?->product_name }},</span>
+                                            @empty
+                                            @endforelse
+                                        </td>
+                                        <td>
+                                            @if ($sale->customer_name || $sale->customer_phone)
                                                 {{ $sale->customer_name }} <br>
                                                 <small>({{ $sale->customer_phone }})</small>
                                             @else
@@ -111,6 +118,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>

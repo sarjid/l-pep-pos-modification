@@ -25,7 +25,11 @@ class AdminPurchaseService extends PurchaseService
         $query->where('invoice_no', "like", "%{$request->search}%")
           ->orWhereHas('supplier', function ($query) use ($request) {
             $query->where('name', "like", "%{$request->search}%");
-          });
+          })
+          ->orWhereHas('products', function ($query) use ($request) {
+            $query->where('product_name', 'like', "%{$request->search}%");
+        });
+
       })
       ->orderByDesc('id')
       ->paginate(40);

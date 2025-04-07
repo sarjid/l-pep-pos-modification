@@ -146,12 +146,17 @@ class ReportController extends Controller
                 ->with([
                     'agent:id,name,employee_name',
                     'customer:id,agent_id,name,mobile',
-                    'saleProducts:id,agent_sale_id,stock_transfer_detail_id,qty,price,total_price',
+                    'saleProducts:id,product_id,agent_sale_id,stock_transfer_detail_id,qty,price,total_price',
+                    'saleProducts.product:id,product_name',
                     'saleProducts.stockTransferDetail:id,purchase_product_id',
                     'saleProducts.stockTransferDetail.purchaseProduct:id,purchase_price'
                 ]);
 
-        $results = $query->paginate(10);
+        $results = $query->orderBy('id','DESC')->paginate(20);
+
+
+
+
 
         $results->map(function ($sale) {
             $purchaseAmount = 0;
@@ -161,7 +166,7 @@ class ReportController extends Controller
                     $purchaseAmount += $purchasePrice * $saleProduct->qty;
                 }
             });
-            unset($sale->saleProducts);
+            // unset($sale->saleProducts);
             $sale->purchase_amount = $purchaseAmount;
             $sale->profit_amount = $sale->total_amount - $purchaseAmount;
             return $sale;

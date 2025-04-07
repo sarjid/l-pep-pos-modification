@@ -12,28 +12,65 @@ class StockTransferController extends Controller
 {
     public function index(Request $request)
     {
+
+        // dd($request->all());
         $request->validate([
             'type' => 'required|in:transferred,received',
             'agent_id' => 'nullable',
-            'date' => 'nullable',
+            'start' => 'nullable',
+            'end' => 'nullable',
             'search' => 'nullable',
         ]);
 
-        $transfers = StockTransfer::query()
-            ->when($request->type == 'received', fn ($q) => $q->where('agent_id', auth()->id()))
-            ->when($request->agent_id, fn ($q) => $q->where('agent_id', $request->agent_id))
-            ->when($request->date, fn ($q) => $q->where('date', $request->date))
-            ->when($request->search, fn ($q) => $q->where('invoice_no', $request->search)->orWhere('total_quantity', $request->search))
-            ->with(['agent:id,name','products'])
+
+
+        $transfers = StockTransfer::filterTransfers($request)
+            ->with(['agent:id,name', 'products'])
             ->orderByDesc('id')
             ->paginate(40);
 
-        $totalQuantity = StockTransfer::query()
-            ->when($request->type == 'received', fn ($q) => $q->where('agent_id', auth()->id()))
-            ->when($request->agent_id, fn ($q) => $q->where('agent_id', $request->agent_id))
-            ->when($request->date, fn ($q) => $q->where('date', $request->date))
-            ->when($request->search, fn ($q) => $q->where('invoice_no', $request->search)->orWhere('total_quantity', $request->search))
-            ->sum('total_quantity');
+        $totalQuantity = StockTransfer::filterTransfers($request)->sum('total_quantity');
+
+
+        // $transfers = StockTransfer::query()
+        //             ->when($request->type == 'received', fn ($q) => $q->where('agent_id', auth()->id()))
+        //             ->when(!is_null($request->agent_id), function ($q) use ($request) {
+        //                 $q->where('agent_id', $request->agent_id);
+        //             })
+        //             ->when($request->start && $request->end, function ($q) use ($request) {
+        //                 $q->filterByDate($request->start, $request->end);
+        //             })
+        //             ->when($request->search, function ($q) use ($request) {
+        //                 $q->where(function ($subQuery) use ($request) {
+        //                     $subQuery->where('invoice_no', 'like', "%{$request->search}%")
+        //                             ->orWhere('total_quantity', 'like', "%{$request->search}%")
+        //                             ->orWhereHas('products', function ($q2) use ($request) {
+        //                                 $q2->where('product_name', 'like', "%{$request->search}%");
+        //                             });
+        //                 });
+        //             })
+        //             ->with(['agent:id,name', 'products'])
+        //             ->orderByDesc('id')
+        //             ->paginate(40);
+
+
+        // $totalQuantity = StockTransfer::query()
+        //                 ->when($request->type == 'received', fn ($q) => $q->where('agent_id', auth()->id()))
+        //                 ->when(!is_null($request->agent_id), function ($q) use ($request) {
+        //                     $q->where('agent_id', $request->agent_id);
+        //                 })
+        //                 ->when($request->start && $request->end, function ($q) use ($request) {
+        //                     $q->filterByDate($request->start, $request->end);
+        //                 })
+        //                 ->when($request->search, function ($q) use ($request) {
+        //                     $q->where(function ($subQuery) use ($request) {
+        //                         $subQuery->where('invoice_no', 'like', "%{$request->search}%")
+        //                                 ->orWhere('total_quantity', 'like', "%{$request->search}%")
+        //                                 ->orWhereHas('products', function ($q2) use ($request) {
+        //                                     $q2->where('product_name', 'like', "%{$request->search}%");
+        //                                 });
+        //                     });
+        //                 })->sum('total_quantity');
 
         return view('stock-transfer.index', compact('transfers', 'totalQuantity'));
     }
