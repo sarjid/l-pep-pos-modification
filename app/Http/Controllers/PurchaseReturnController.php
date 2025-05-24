@@ -45,6 +45,7 @@ class PurchaseReturnController extends Controller
 
     public function purchaseReturn($purchaseId)
     {
+
         $purchase = Purchase::query()
             ->with([
                 "purchaseProducts.product" => function ($query) {
@@ -57,6 +58,9 @@ class PurchaseReturnController extends Controller
                 "supplier"
             ])
             ->find($purchaseId);
+
+
+
 
         return view("purchase.return.create", [
             'purchase' => $purchase,
@@ -102,6 +106,10 @@ class PurchaseReturnController extends Controller
 
     public function purchaseReturnStore(Request $request, array $returnProducts)
     {
+
+       dd($returnProducts);
+
+
         try {
             DB::beginTransaction();
 

@@ -240,8 +240,10 @@ Route::middleware(['auth'])->group(function () {
         'incomeType'=> IncomeTypeController::class
     ]);
     Route::get('/income-type/print/{incomeType}',[IncomeTypeController::class,'print'])->name('incomeType.print');
+    Route::get('/income-type/sales',[IncomeTypeController::class,'icomeTypeHistory'])->name('incomeType.report');
     Route::get('/income/all/json', [IncomeController::class, 'allIncomeJson'])->name('income.all');
     Route::get('/history', [IncomeController::class, 'history'])->name('income.history');
+
 
     // Employee Routes
     Route::resource('/employee', EmployeeController::class);
@@ -273,6 +275,9 @@ Route::middleware(['auth'])->group(function () {
 
     // ReportController Routes
     Route::get('/stock/report', [ReportController::class, 'stockReport'])->name('report.stock');
+    Route::get('/stock/report-export', [ReportController::class, 'stockReportExport'])->name('report.stock.export');
+
+
     Route::get('/product/report', [ReportController::class, 'productReport'])->name('report.product');
     Route::get('/report/category', [ReportController::class, 'categoryReport'])->name('report.category');
     Route::get('/report/sale', [ReportController::class, 'saleReport'])->name('report.sale');

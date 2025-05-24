@@ -18,7 +18,7 @@ class AdminPurchaseService extends PurchaseService
   public function index(Request $request)
   {
 
-    $purchases = Purchase::query()
+    $data = Purchase::query()
       ->with(['supplier', 'purchaseReturn','products'])
       ->when($request->purchase_date, fn ($query) => $query->where('purchase_date', $request->purchase_date))
       ->when($request->search, function ($query) use ($request) {
@@ -30,14 +30,15 @@ class AdminPurchaseService extends PurchaseService
             $query->where('product_name', 'like', "%{$request->search}%");
         });
 
-      })
-      ->orderByDesc('id')
-      ->paginate(40);
+      });
 
-    return view('purchase.index', [
-      'purchases' => $purchases,
-    ]);
-  }
+      $purchases = $data->orderByDesc('id')->paginate(40);
+
+        return view('purchase.index', [
+            'purchases' => $purchases,
+            // 'data' =>  $data
+        ]);
+    }
 
   public function create()
   {

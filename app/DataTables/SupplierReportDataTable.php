@@ -79,10 +79,11 @@ class SupplierReportDataTable extends DataTable
                         }",
             ])
             ->drawCallback("function() {
-                $('#data-table > tfoot > tr > th:nth-child(6)').text(this.api().ajax.json().sums.purchase_count);
-                $('#data-table > tfoot > tr > th:nth-child(7)').text(this.api().ajax.json().sums.total_purchase);
-                $('#data-table > tfoot > tr > th:nth-child(8)').text(this.api().ajax.json().sums.total_paying_amount);
-                $('#data-table > tfoot > tr > th:nth-child(9)').text(this.api().ajax.json().sums.due);
+                $('#data-table > tfoot > tr > th:nth-child(1)').text('Total');
+                $('#data-table > tfoot > tr > th:nth-child(5)').text(this.api().ajax.json().sums.purchase_count);
+                $('#data-table > tfoot > tr > th:nth-child(6)').text(this.api().ajax.json().sums.total_purchase);
+                $('#data-table > tfoot > tr > th:nth-child(7)').text(this.api().ajax.json().sums.total_paying_amount);
+                $('#data-table > tfoot > tr > th:nth-child(8)').text(this.api().ajax.json().sums.due);
 
                 $('#data-table_wrapper').prepend('<div id=\"filter-bar\" style=\"display:flex; justify-content: space-between; align-items: center\"></div>');
                 let element = $('#data-table_wrapper .dataTables_length').detach();

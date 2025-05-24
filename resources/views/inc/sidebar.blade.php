@@ -486,7 +486,9 @@
                                 {{ __('sidebar.report')[0] }} </span> <span class="menu-arrow"></span></a>
                         <ul class="list-unstyled">
                             @if (permission('re1'))
-                                <li><a href="{{ route('report.profitLoss') }}">{{ __('sidebar.report')[1] }}</a>
+                                <li><a href="{{ route('report.stock') }}">{{ __('Stock Report') }}</a>
+                                </li>
+                                  <li><a href="{{ route('report.profitLoss') }}">{{ __('sidebar.report')[1] }}</a>
                                 </li>
                                 <li><a href="{{ route('report.product') }}">{{ __('sidebar.report')[2] }}</a>
                                 </li>

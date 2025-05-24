@@ -16,9 +16,9 @@
                             <div class="col-md-7">
                                 <div class="input-daterange input-group" id="date-range">
                                     <input type="text" class="form-control datepicker" name="start_date"
-                                        placeholder="Start Date" required />
+                                        placeholder="Start Date" value="{{ request('start_date') }}"  required />
                                     <span class="input-group-addon bg-primary b-0 text-white">to</span>
-                                    <input type="text" class="form-control datepicker" name="end_date"
+                                    <input type="text" value="{{ request('end_date') }}" class="form-control datepicker" name="end_date"
                                         placeholder="End Date" required />
                                 </div>
                             </div>

@@ -86,9 +86,9 @@ class MonthlySaleReportDataTable extends DataTable
                         }",
             ])
             ->drawCallback("function() {
-                $('#data-table > tfoot > tr > th:nth-child(6)').text(this.api().ajax.json().sums.total_amount);
-                $('#data-table > tfoot > tr > th:nth-child(7)').text(this.api().ajax.json().sums.paying_amount);
-                $('#data-table > tfoot > tr > th:nth-child(8)').text(this.api().ajax.json().sums.due);
+                $('#data-table > tfoot > tr > th:nth-child(5)').text(this.api().ajax.json().sums.total_amount);
+                $('#data-table > tfoot > tr > th:nth-child(6)').text(this.api().ajax.json().sums.paying_amount);
+                $('#data-table > tfoot > tr > th:nth-child(7)').text(this.api().ajax.json().sums.due);
 
                 $('#data-table_wrapper').prepend('<div id=\"filter-bar\" style=\"display:flex; justify-content: space-between; align-items: center\"></div>');
                 let element = $('#data-table_wrapper .dataTables_length').detach();

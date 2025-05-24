@@ -106,10 +106,11 @@ class SoldReportDataTable extends DataTable
                         }",
             ])
             ->drawCallback("function() {
-                $('#data-table > tfoot > tr > th:nth-child(4)').text(this.api().ajax.json().sums.final_sold_quantity);
-                $('#data-table > tfoot > tr > th:nth-child(5)').text(this.api().ajax.json().sums.total_selling_price);
-                $('#data-table > tfoot > tr > th:nth-child(6)').text(this.api().ajax.json().sums.total_purchase_price);
-                $('#data-table > tfoot > tr > th:nth-child(7)').text(this.api().ajax.json().sums.margin);
+                $('#data-table > tfoot > tr > th:nth-child(1)').text('Total');
+                $('#data-table > tfoot > tr > th:nth-child(3)').text(this.api().ajax.json().sums.final_sold_quantity);
+                $('#data-table > tfoot > tr > th:nth-child(4)').text(this.api().ajax.json().sums.total_selling_price);
+                $('#data-table > tfoot > tr > th:nth-child(5)').text(this.api().ajax.json().sums.total_purchase_price);
+                $('#data-table > tfoot > tr > th:nth-child(6)').text(this.api().ajax.json().sums.margin);
 
                 $('#data-table_wrapper').prepend('<div id=\"filter-bar\" style=\"display:flex; justify-content: space-between; align-items: center\"></div>');
                 let element = $('#data-table_wrapper .dataTables_length').detach();

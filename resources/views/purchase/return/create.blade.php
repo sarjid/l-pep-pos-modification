@@ -98,7 +98,7 @@
                                                             name="product_id[{{ $product->id }}]">
                                                     </td>
                                                     <td>
-                                                        <input type="number"
+                                                        <input type="number" class="form-control"
                                                             oninput="returnPrice({{ $product->id }},{{ $product->quantity }})"
                                                             step="0.2" value="{{ $product->purchase_price }}"
                                                             id="price{{ $product->id }}"
@@ -114,11 +114,12 @@
                                                     <td>
                                                         <input type="number" step="0.1" min="0"
                                                             max="{{ $product->quantity }}"
-                                                            data-stock_quantity="{{ getCurrentStockQuantityFromProduct($product) }}"
+                                                            data-stock_quantity="{{ getCurrentStockQuantityFromProduct($product->product) }}"
                                                             oninput="returnQuantity({{ $product->id }},{{ $product->quantity }})"
                                                             class="returnqty" data-return_id="{{ $product->id }}"
                                                             id="return_quantity{{ $product->id }}" value="0"
                                                             name="return_quantity[{{ $product->id }}]"
+                                                            class="form-control"
                                                             style="height: 30px;margin-top: 6px;border-radius: 3px;width: 140px;text-align: right; border: 1px solid #b3afaf;">
                                                     </td>
                                                     <td>
@@ -220,7 +221,7 @@
                                                     <td>
                                                         <input type="number" step="0.1" min="0"
                                                             max="{{ $product->quantity }}"
-                                                            data-stock_quantity="{{ getCurrentStockQuantityFromProduct($product) }}"
+                                                            data-stock_quantity="{{ getCurrentStockQuantityFromProduct($product->product) }}"
                                                             oninput="returnQuantity({{ $product->id }},{{ $product->quantity }})"
                                                             class="returnqty" data-return_id="{{ $product->id }}"
                                                             id="return_quantity{{ $product->id }}" value="0"
@@ -253,7 +254,7 @@
                                                 <td colspan="" style="width: 15%">
                                                     <input type="text"
                                                         style="height: 30px;margin-top: 6px;border-radius: 3px;width: 140px;text-align: right; border: 1px solid #b3afaf;"
-                                                        name="pay_return_amount" value="0">
+                                                        name="pay_return_amount" class="form-control" value="0">
                                                 </td>
                                             </tr>
 

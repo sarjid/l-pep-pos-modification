@@ -15,7 +15,13 @@ class PurchaseReportDataTable extends DataTable
         return $collection->map(function ($item) {
             $item->total = round($item->total, 2);
             $item->total_pay = round($item->total_pay, 2);
-            $item->purchase_product_names = collect($item->purchaseProducts)->map(fn ($pro) => $pro->product->product_name . ' (' . $pro->quantity . ')');
+            // $item->purchase_product_names = collect($item->purchaseProducts)->map(fn ($pro) => $pro->product->product_name . ' (' . $pro->quantity . ')');
+            $item->purchase_product_names = collect($item->purchaseProducts)->map(function ($pro) {
+                return $pro->product
+                    ? $pro->product->product_name . ' (' . $pro->quantity . ')'
+                    : 'Unknown Product (' . $pro->quantity . ')';
+            });
+
             $item->due = round($item->total - $item->total_pay, 2);
             return $item;
         });
@@ -83,9 +89,10 @@ class PurchaseReportDataTable extends DataTable
                         }",
             ])
             ->drawCallback("function() {
-                $('#data-table > tfoot > tr > th:nth-child(7)').text(this.api().ajax.json().sums.total);
-                $('#data-table > tfoot > tr > th:nth-child(8)').text(this.api().ajax.json().sums.total_pay);
-                $('#data-table > tfoot > tr > th:nth-child(9)').text(this.api().ajax.json().sums.due);
+                $('#data-table > tfoot > tr > th:nth-child(1)').text('Total');
+                $('#data-table > tfoot > tr > th:nth-child(6)').text(this.api().ajax.json().sums.total);
+                $('#data-table > tfoot > tr > th:nth-child(7)').text(this.api().ajax.json().sums.total_pay);
+                $('#data-table > tfoot > tr > th:nth-child(8)').text(this.api().ajax.json().sums.due);
 
                 $('#data-table_wrapper').prepend('<div id=\"filter-bar\" style=\"display:flex; justify-content: space-between; align-items: center\"></div>');
                 let element = $('#data-table_wrapper .dataTables_length').detach();

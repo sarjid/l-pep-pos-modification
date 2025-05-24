@@ -139,11 +139,12 @@ class ProductReportDataTable extends DataTable
             ])
             ->drawCallback("function() {
                 const sums = this.api().ajax.json().sums;
-                $('#data-table > tfoot > tr > th:nth-child(4)').text('('+sums.final_purchase_quantity+') '+sums.final_purchase_amount);
-                $('#data-table > tfoot > tr > th:nth-child(5)').text('('+sums.final_sold_quantity+') '+sums.final_sold_amount);
-                $('#data-table > tfoot > tr > th:nth-child(6)').text('('+sums.final_sold_return_quantity+') '+sums.final_sold_return_amount);
-                $('#data-table > tfoot > tr > th:nth-child(7)').text(sums.margin_amount);
-                $('#data-table > tfoot > tr > th:nth-child(8)').text('('+sums.margin_quantity+') '+sums.margin_selling_price);
+                $('#data-table > tfoot > tr > th:nth-child(1)').text('Total');
+                $('#data-table > tfoot > tr > th:nth-child(3)').text('('+sums.final_purchase_quantity+') '+sums.final_purchase_amount);
+                $('#data-table > tfoot > tr > th:nth-child(4)').text('('+sums.final_sold_quantity+') '+sums.final_sold_amount);
+                $('#data-table > tfoot > tr > th:nth-child(5)').text('('+sums.final_sold_return_quantity+') '+sums.final_sold_return_amount);
+                $('#data-table > tfoot > tr > th:nth-child(6)').text(sums.margin_amount);
+                $('#data-table > tfoot > tr > th:nth-child(7)').text('('+sums.margin_quantity+') '+sums.margin_selling_price);
 
                 $('#data-table_wrapper').prepend('<div id=\"filter-bar\" style=\"display:flex; justify-content: space-between; align-items: center\"></div>');
                 let element = $('#data-table_wrapper .dataTables_length').detach();

@@ -12,7 +12,6 @@ class StockController extends Controller
     {
 
 
-        // return 'ok';
         $products = Product::query()
             ->when($request->product_name, function ($q) use ($request) {
                 $q->where('products.product_name', 'like', '%' . $request->product_name . '%');

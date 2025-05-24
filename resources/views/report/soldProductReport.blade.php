@@ -13,12 +13,12 @@
                         <div class="row mb-4 d-flex justify-content-end">
                             <div class="col-md-3">
                                 <input class="form-control datePicker" value="{{ request('start_date') ?? '' }}"
-                                    type="text" name="start_date" placeholder="Start Date" data-date-format="mm-dd-yyyy"
+                                    type="text" value="{{ request('start_date') }}" name="start_date" placeholder="Start Date" data-date-format="mm-dd-yyyy"
                                     required autocomplete="off">
                             </div>
                             <div class="col-md-3">
                                 <input class="form-control datePicker" value="{{ request('end_date') ?? '' }}" type="text"
-                                    name="end_date" placeholder="end Date" data-date-format="mm-dd-yyyy" required
+                                    name="end_date" value="{{ request('end_date') }}" placeholder="end Date" data-date-format="mm-dd-yyyy" required
                                     autocomplete="off">
                             </div>
                             <div class="col-md-2">

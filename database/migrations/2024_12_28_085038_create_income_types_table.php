@@ -16,6 +16,9 @@ class CreateIncomeTypesTable extends Migration
         Schema::create('income_types', function (Blueprint $table) {
             $table->id();
             $table->string('income_type');
+            $table->string('calculation_type')->nullable(); // 'full_profit', 'half_profit', or 'formula'
+            $table->double('value1', 10, 2)->nullable(); // used in 'formula' only
+            $table->double('value2', 10, 2)->nullable(); // used in 'formula' only
             $table->timestamps();
         });
     }

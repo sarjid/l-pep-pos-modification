@@ -19,6 +19,10 @@
                             class="btn btn-success waves-effect waves-light m-b-5 btn-rounded">
                             <i class="fa fa-plus-square m-r-5"></i> <span>{{ __('Add New') }}</span>
                         </a>
+
+                        <a href="{{ route('incomeType.report') }}" class="btn btn-success btn-rounded waves-effect waves-light m-b-5">
+                            <span>{{ __('Income Type Sales Report') }}</span>
+                        </a>
                     </div>
 
                 </div>

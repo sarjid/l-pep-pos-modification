@@ -166,4 +166,85 @@ class IncomeTypeController extends Controller
             // 'data' => $income->load(['details', 'details.user:id,name,employee_name'])
         ]);
     }
+
+
+    public function icomeTypeHistory(Request $request){
+
+        $year = $request->year;
+        $month = $request->month;
+
+        $incomes = Income::filterByYearAndMonth($year, $month)
+            ->with(['details.user'])
+            ->get();
+
+        $incomeTypes = $incomes->flatMap->details->flatMap->income_types->keys()->unique();
+
+        $employeeEarnings = [];
+        $employeeWorkingDays = [];
+        $employeeTargets = [];
+        $employeeAA = [];
+        $incomeTypeTotals = array_fill_keys($incomeTypes->toArray(), 0);
+
+        $totalWorkingDays = 0;
+        $totalTarget = 0;
+        $totalAA = 0;
+        $grandTotal = 0;
+        $totalEmployees = 0;
+
+        foreach ($incomes as $income) {
+            foreach ($income->details as $detail) {
+                $employee = $detail->user->employee_name . ' - ' . $detail->user->name;
+
+                // Count total records (i.e., working days) per employee
+                $employeeWorkingDays[$employee] = isset($employeeWorkingDays[$employee])
+                    ? $employeeWorkingDays[$employee] + 1
+                    : 1;
+
+                // Reduce working days if the employee was absent
+                if ($detail->is_absent == 1 && $employeeWorkingDays[$employee] > 0) {
+                    $employeeWorkingDays[$employee]--;
+                }
+
+                if (!isset($employeeEarnings[$employee])) {
+                    $employeeEarnings[$employee] = array_fill_keys($incomeTypes->toArray(), 0);
+                    $totalEmployees++; // Count unique employees
+                }
+
+                // Sum up income types for each employee
+                foreach ($detail->income_types as $type => $amount) {
+                    $employeeEarnings[$employee][$type] += $amount;
+                    $incomeTypeTotals[$type] += $amount;
+                }
+            }
+        }
+
+        // Calculate Target, A/A%, and other totals
+        foreach ($employeeEarnings as $employee => $earnings) {
+            $workingDays = max(0, $employeeWorkingDays[$employee] ?? 0); // Ensure non-negative value
+            $target = $workingDays * 3500; // Target = 3500 * working days
+            $employeeTargets[$employee] = $target;
+
+            $rowTotal = array_sum($earnings); // Total earnings for the employee
+
+            // Calculate A/A% (Actual Earnings / Target) * 100
+            $employeeAA[$employee] = ($target > 0) ? ($rowTotal / $target) * 100 : 0;
+
+            // Accumulate total working days, target, and A/A% for averaging
+            $totalWorkingDays += $workingDays;
+            $totalTarget += $target;
+            $totalAA += $employeeAA[$employee];
+
+            // Add rowTotal to grandTotal
+            $grandTotal += $rowTotal;
+        }
+
+        $averageAA = ($totalEmployees > 0) ? ($totalAA / $totalEmployees) : 0;
+
+        return view('income.type.report', compact(
+            'year', 'month', 'incomeTypes', 'employeeEarnings',
+            'employeeWorkingDays', 'employeeTargets', 'employeeAA',
+            'totalWorkingDays', 'totalTarget', 'averageAA', 'incomeTypeTotals', 'grandTotal'
+        ));
+
+    }
 }

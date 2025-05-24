@@ -18,8 +18,11 @@ use App\DataTables\PurchaseReportDataTable;
 use App\DataTables\SupplierReportDataTable;
 use App\DataTables\DailySaleReportDataTable;
 use App\DataTables\MonthlySaleReportDataTable;
+use App\Exports\StockReportExport;
 use App\Models\AgentSale;
+use App\Models\Product;
 use App\Models\User;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReportController extends Controller
 {
@@ -40,8 +43,31 @@ class ReportController extends Controller
 
     public function stockReport(Request $request)
     {
-        return view('report.stockReport');
+
+        $products = Product::query()
+            ->when($request->product_name, function ($q) use ($request) {
+                $q->where('products.product_name', 'like', '%' . $request->product_name . '%');
+            })
+            ->addSelect(['purchase_price' => function ($q) {
+                $q->select('purchase_price')
+                    ->from('purchase_products')
+                    ->whereColumn('purchase_products.product_id', 'products.id')
+                    ->orderByDesc('purchase_products.id')
+                    ->limit(1);
+            }])
+            ->withStockProperties()
+            ->get(); // Use get() instead of paginate() for export/print
+
+        return view('report.stock-report', [
+            'products' => $products,
+            'search' => $request->product_name ?? null,
+        ]);
     }
+
+    public function stockReportExport(){
+         return Excel::download(new StockReportExport, 'stock-report.xlsx');
+    }
+
 
     public function productReport(ProductReportDataTable $dataTable)
     {

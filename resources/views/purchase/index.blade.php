@@ -98,13 +98,13 @@
                                                     @if (permission('pu3'))
                                                         <a href="{{ route('purchase.edit', $purchase->id) }}"
                                                             class="dropdown-item">Edit</a>
-                                                        {{-- @if ($purchase->purchaseReturn)
+                                                        @if ($purchase->purchaseReturn)
                                                             <a href="{{ route('purchase-return.edit', $purchase->purchaseReturn->id) }}"
                                                                 class="dropdown-item">Purchase Return</a>
                                                         @else
                                                             <a href="{{ route('purchase.return', $purchase->id) }}"
                                                                 class="dropdown-item">Purchase Return</a>
-                                                        @endif --}}
+                                                        @endif
                                                     @endif
                                                     @if (permission('pu4'))
                                                         <a href="{{ route('purchase.destroy', $purchase->id) }}"
@@ -116,6 +116,30 @@
                                     </tr>
                                 @endforeach
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5">
+                                        <strong>
+                                            Total
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        <strong>
+                                            {{ $purchases->sum('total') }}
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <strong>
+                                            {{ $purchases->sum('total_pay') }}
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <strong>{{ $purchases->sum('total') - $purchases->sum('total_pay') }}</strong>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
